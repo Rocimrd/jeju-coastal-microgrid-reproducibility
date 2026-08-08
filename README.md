@@ -72,6 +72,11 @@ IBM ILOG CPLEX Optimization Studio 22.1.2 is required to build and run the optim
 
 ## Citation and license
 
-This is release `v1.0.0`. Citation metadata are provided in `CITATION.cff`. The repository DOI and article DOI can be added after archival deposition and publication.
+This is release `v1.0.0`.
+
+The archived release is available on Zenodo:
+DOI: 10.5281/zenodo.21846588
+
+Citation metadata are provided in `CITATION.cff`. The article DOI will be added after publication.
 
 The source code, build files, and checking scripts are released under the MIT License in `LICENSE`. The research data and analysis outputs are released under CC BY 4.0 as described in `DATA_LICENSE.txt`. Third-party source data remain subject to the terms of their original providers.

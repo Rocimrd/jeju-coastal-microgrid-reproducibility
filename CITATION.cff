@@ -4,6 +4,7 @@ title: "Jeju coastal microgrid reproducibility materials"
 type: software
 version: 1.0.0
 date-released: 2026-08-08
+doi: 10.5281/zenodo.21846588
 authors:
   - family-names: Lee
     given-names: Woon-Gyu
@@ -11,3 +12,4 @@ authors:
     given-names: Akhtar
   - family-names: Kim
     given-names: Hak-Man
+
