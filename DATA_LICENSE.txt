@@ -1,0 +1,15 @@
+Data license
+
+Copyright (c) 2026 Woon-Gyu Lee, Akhtar Hussain, and Hak-Man Kim
+
+Unless otherwise noted, the processed inputs, parameter files, result tables,
+selected dispatch data, supplementary data files, and validation reference
+values in this repository are licensed under the Creative Commons Attribution
+4.0 International License (CC BY 4.0).
+
+License: https://creativecommons.org/licenses/by/4.0/
+
+When reusing these materials, provide appropriate attribution to the study
+authors and cite the repository release. Third-party source data remain subject
+to the terms of their original providers. Source information is listed in
+provenance/source_register.csv.

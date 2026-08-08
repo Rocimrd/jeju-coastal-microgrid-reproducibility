@@ -1,0 +1,64 @@
+source_gridcap_symmetric: PASS
+source_signed_sell_policy: PASS
+source_full_water_balance: PASS
+source_decoupled_water_balance: PASS
+source_h2_balance: PASS
+source_power_balance: PASS
+source_fixed_capacity_re_evaluation: PASS
+source_mip_gap: PASS
+source_time_limit: PASS
+project_x64_release: PASS
+project_cpp17: PASS
+project_release_MD: PASS
+project_cplex_2212: PASS
+project_source_cpp: PASS
+project_toolset_v145: PASS
+param_rho_EL: PASS (0.013)
+param_kappa_EL: PASS (49.9)
+param_RO_SEC: PASS (2.864)
+param_water_shortage_penalty: PASS (100.0)
+param_H2_shortage_penalty: PASS (2500.0)
+param_carbon_tax: PASS (150.0)
+param_grid_import_cap: PASS (1.5)
+param_grid_export_cap: PASS (1.5)
+param_diesel_cost: PASS (0.306302879981247)
+param_diesel_EF: PASS (0.708543971022556)
+param_FX: PASS (1422.0)
+solver_version_metadata: PASS (IBM ILOG CPLEX Optimization Studio 22.1.2)
+electrolyzer_variable_om_zero: PASS (0.0)
+full_input_8760: PASS (8760)
+full_input_required_columns: PASS
+full_input_dt_1: PASS
+full_input_omega_1: PASS
+grid_EF_constant_04173: PASS
+signed_import_relation: PASS (4.996003610813204e-16)
+signed_export_relation: PASS (5.967448757360216e-16)
+negative_SMP_hours_64: PASS (64)
+paper_DataS1_8760: PASS (8760)
+compact_input_8760: PASS (8760)
+input_match_P_load_MW: PASS (paper-compact=5.329e-15, paper-full=5.329e-15)
+input_match_W_load_m3_h: PASS (paper-compact=5.116e-13, paper-full=5.116e-13)
+input_match_H2_load_kg_h: PASS (paper-compact=5.684e-14, paper-full=5.684e-14)
+input_match_phi_pv: PASS (paper-compact=0.000e+00, paper-full=0.000e+00)
+input_match_phi_wt: PASS (paper-compact=0.000e+00, paper-full=0.000e+00)
+input_match_SMP_KRW_per_kWh: PASS (paper-compact=0.000e+00, paper-full=0.000e+00)
+input_match_grid_import_price_USD_per_kWh: PASS (paper-compact=0.000e+00, paper-full=8.066e-17)
+input_match_grid_export_price_USD_per_kWh: PASS (paper-compact=1.110e-16, paper-full=1.110e-16)
+datetime_match: PASS
+result_count_base_case_summary.csv: PASS (1)
+result_count_coupling_grid.csv: PASS (25)
+result_count_service_priority_sensitivity.csv: PASS (16)
+result_count_proportional_restoration.csv: PASS (4)
+result_count_independent_restoration.csv: PASS (2)
+result_count_feedwater_sensitivity.csv: PASS (6)
+result_count_hydrogen_profile_sensitivity.csv: PASS (6)
+result_count_pcc_carbon_grid.csv: PASS (25)
+base_objective_full: PASS (4684826.40262)
+base_objective_decoupled: PASS (4680307.74272)
+base_objective_reevaluated: PASS (4685310.04714)
+high_case_unique: PASS (1)
+high_case_shortage_5918: PASS (5918.31013332)
+high_case_RO_deviation: PASS (-8.58622470218956)
+all_25_RO_deviation_negative: PASS
+
+STATIC VALIDATION: PASS

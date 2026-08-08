@@ -1,0 +1,6 @@
+parameter,values
+hydrogen_service_kg_day,1000;3000;5000;8000;10000
+community_water_scale_percent,50;75;100;125;150
+carbon_price_USD_per_tCO2eq,150
+symmetric_PCC_limit_MW,1.5
+formulations,full_coupled;decoupled_sizing;fixed_capacity_re_evaluation

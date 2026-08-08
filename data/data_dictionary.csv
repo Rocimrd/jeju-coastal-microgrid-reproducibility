@@ -1,0 +1,231 @@
+file,column,unit,description
+data/hourly_input.csv,time_index,-,Sequential hourly index.
+data/hourly_input.csv,datetime,YYYY-MM-DD HH:MM:SS,Hourly timestamp.
+data/hourly_input.csv,duration_h,h,Time-step duration.
+data/hourly_input.csv,pv_capacity_factor,p.u.,PV availability factor.
+data/hourly_input.csv,wind_capacity_factor,p.u.,Wind-turbine availability factor.
+data/hourly_input.csv,electric_load_MW,MW,Local electric demand.
+data/hourly_input.csv,freshwater_demand_m3_h,m3/h,Community freshwater demand.
+data/hourly_input.csv,hydrogen_service_kg_h,kg-H2/h,External hydrogen service demand.
+data/hourly_input.csv,smp_KRW_per_kWh,KRW/kWh,Hourly Jeju system marginal price.
+data/hourly_input.csv,grid_import_price_KRW_per_kWh,KRW/kWh,Grid import price on the SMP basis.
+data/hourly_input.csv,grid_export_price_KRW_per_kWh,KRW/kWh,"Grid export price, equal to 0.8 times the signed SMP."
+data/hourly_input.csv,grid_import_price_USD_per_kWh,USD/kWh,"Grid import price converted at 1,422 KRW/USD."
+data/hourly_input.csv,grid_export_price_USD_per_kWh,USD/kWh,"Grid export price converted at 1,422 KRW/USD."
+data/hourly_input.csv,grid_emission_factor_tCO2eq_per_MWh,tCO2-eq/MWh,Grid greenhouse-gas emission factor.
+results/base_case_summary.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
+results/base_case_summary.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
+results/base_case_summary.csv,nominal_external_H2_feedwater_to_community_water_percent,%,Electrolyzer feedwater associated with the nominal external H2 demand relative to community freshwater demand.
+results/base_case_summary.csv,full_plan_total_feedwater_to_community_water_percent,%,Total electrolyzer feedwater in full-coupled planning relative to community freshwater demand.
+results/base_case_summary.csv,objective_full_USD,USD/yr,Annual objective value for full-coupled planning.
+results/base_case_summary.csv,objective_decoupled_USD,USD/yr,Annual objective value for feedwater-omitting sizing.
+results/base_case_summary.csv,objective_reevaluated_USD,USD/yr,Annual objective value for fixed-capacity full-coupled re-evaluation.
+results/base_case_summary.csv,decoupled_minus_full_USD,USD/yr,Difference between the feedwater-omitting sizing objective and the full-coupled planning objective.
+results/base_case_summary.csv,restoration_increment_USD,USD/yr,Increase in objective when the feedwater coupling is restored at the fixed decoupled capacities.
+results/base_case_summary.csv,reevaluated_minus_full_USD,USD/yr,Difference between the fixed-capacity re-evaluation objective and the full-coupled planning objective.
+results/base_case_summary.csv,reevaluated_minus_full_percent,%,Fixed-capacity re-evaluation objective difference relative to full-coupled planning.
+results/base_case_summary.csv,freshwater_shortage_reevaluated_m3,m3/yr,Annual freshwater shortage in fixed-capacity full-coupled re-evaluation.
+results/base_case_summary.csv,freshwater_shortage_ratio_percent,%,Annual freshwater shortage as a percentage of freshwater demand.
+results/base_case_summary.csv,freshwater_shortage_hours,h/yr,Number of hours with freshwater shortage.
+results/base_case_summary.csv,H2_shortage_reevaluated_kg,kg-H2/yr,Annual hydrogen service shortage in fixed-capacity full-coupled re-evaluation.
+results/base_case_summary.csv,K_RO_full_m3_h,m3/h,RO capacity in full-coupled planning.
+results/base_case_summary.csv,K_RO_decoupled_m3_h,m3/h,RO capacity in feedwater-omitting sizing.
+results/base_case_summary.csv,K_RO_deviation_percent,%,RO capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/base_case_summary.csv,K_Wtank_full_m3,m3,Water-tank capacity in full-coupled planning.
+results/base_case_summary.csv,K_Wtank_decoupled_m3,m3,Water-tank capacity in feedwater-omitting sizing.
+results/base_case_summary.csv,K_Wtank_deviation_percent,%,Water-tank capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/base_case_summary.csv,K_BESS_E_full_MWh,MWh,BESS energy capacity in full-coupled planning.
+results/base_case_summary.csv,K_BESS_E_decoupled_MWh,MWh,BESS energy capacity in feedwater-omitting sizing.
+results/base_case_summary.csv,K_BESS_E_deviation_percent,%,BESS energy-capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/base_case_summary.csv,minimum_water_inventory_reevaluated_m3,m3,Minimum water-tank inventory during fixed-capacity full-coupled re-evaluation.
+results/coupling_grid.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
+results/coupling_grid.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
+results/coupling_grid.csv,nominal_external_H2_feedwater_to_community_water_percent,%,Electrolyzer feedwater associated with the nominal external H2 demand relative to community freshwater demand.
+results/coupling_grid.csv,full_plan_total_feedwater_to_community_water_percent,%,Total electrolyzer feedwater in full-coupled planning relative to community freshwater demand.
+results/coupling_grid.csv,objective_full_USD,USD/yr,Annual objective value for full-coupled planning.
+results/coupling_grid.csv,objective_decoupled_USD,USD/yr,Annual objective value for feedwater-omitting sizing.
+results/coupling_grid.csv,objective_reevaluated_USD,USD/yr,Annual objective value for fixed-capacity full-coupled re-evaluation.
+results/coupling_grid.csv,decoupled_minus_full_USD,USD/yr,Difference between the feedwater-omitting sizing objective and the full-coupled planning objective.
+results/coupling_grid.csv,restoration_increment_USD,USD/yr,Increase in objective when the feedwater coupling is restored at the fixed decoupled capacities.
+results/coupling_grid.csv,reevaluated_minus_full_USD,USD/yr,Difference between the fixed-capacity re-evaluation objective and the full-coupled planning objective.
+results/coupling_grid.csv,reevaluated_minus_full_percent,%,Fixed-capacity re-evaluation objective difference relative to full-coupled planning.
+results/coupling_grid.csv,freshwater_shortage_reevaluated_m3,m3/yr,Annual freshwater shortage in fixed-capacity full-coupled re-evaluation.
+results/coupling_grid.csv,freshwater_shortage_ratio_percent,%,Annual freshwater shortage as a percentage of freshwater demand.
+results/coupling_grid.csv,freshwater_shortage_hours,h/yr,Number of hours with freshwater shortage.
+results/coupling_grid.csv,H2_shortage_reevaluated_kg,kg-H2/yr,Annual hydrogen service shortage in fixed-capacity full-coupled re-evaluation.
+results/coupling_grid.csv,K_RO_full_m3_h,m3/h,RO capacity in full-coupled planning.
+results/coupling_grid.csv,K_RO_decoupled_m3_h,m3/h,RO capacity in feedwater-omitting sizing.
+results/coupling_grid.csv,K_RO_deviation_percent,%,RO capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/coupling_grid.csv,K_Wtank_full_m3,m3,Water-tank capacity in full-coupled planning.
+results/coupling_grid.csv,K_Wtank_decoupled_m3,m3,Water-tank capacity in feedwater-omitting sizing.
+results/coupling_grid.csv,K_Wtank_deviation_percent,%,Water-tank capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/coupling_grid.csv,K_BESS_E_full_MWh,MWh,BESS energy capacity in full-coupled planning.
+results/coupling_grid.csv,K_BESS_E_decoupled_MWh,MWh,BESS energy capacity in feedwater-omitting sizing.
+results/coupling_grid.csv,K_BESS_E_deviation_percent,%,BESS energy-capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/coupling_grid.csv,minimum_water_inventory_reevaluated_m3,m3,Minimum water-tank inventory during fixed-capacity full-coupled re-evaluation.
+results/service_priority_sensitivity.csv,penalty_level,-,Shortage-penalty case label.
+results/service_priority_sensitivity.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
+results/service_priority_sensitivity.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
+results/service_priority_sensitivity.csv,freshwater_shortage_penalty_USD_per_m3,USD/m3,Freshwater shortage penalty.
+results/service_priority_sensitivity.csv,hydrogen_shortage_penalty_USD_per_kg,USD/kg-H2,Hydrogen shortage penalty.
+results/service_priority_sensitivity.csv,objective_USD,USD/yr,Annual objective value.
+results/service_priority_sensitivity.csv,freshwater_shortage_m3,m3/yr,Annual freshwater shortage.
+results/service_priority_sensitivity.csv,freshwater_shortage_hours,h/yr,Number of hours with freshwater shortage.
+results/service_priority_sensitivity.csv,H2_shortage_kg,kg-H2/yr,Annual hydrogen service shortage.
+results/service_priority_sensitivity.csv,penalty_excluded_objective_proxy_USD,USD/yr,Annual objective after subtracting freshwater and hydrogen shortage penalties.
+results/service_priority_sensitivity.csv,total_grid_import_MWh,MWh/yr,Annual grid import energy.
+results/service_priority_sensitivity.csv,total_grid_export_MWh,MWh/yr,Annual grid export energy.
+results/service_priority_sensitivity.csv,total_diesel_MWh,MWh/yr,Annual diesel generation.
+results/service_priority_sensitivity.csv,total_CO2_t,tCO2-eq/yr,Annual grid and diesel greenhouse-gas emissions.
+results/service_priority_sensitivity.csv,negative_price_export_MWh,MWh/yr,Annual grid export energy during negative-price hours.
+results/proportional_restoration.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
+results/proportional_restoration.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
+results/proportional_restoration.csv,RO_only_restoration_percent,%,RO capacity increase required for zero freshwater shortage with the water tank fixed.
+results/proportional_restoration.csv,joint_restoration_percent,%,Common RO and water-tank capacity increase required for zero freshwater shortage.
+results/proportional_restoration.csv,joint_factor_reduction_percentage_points,percentage points,Reduction in the restoration factor when RO and water-tank capacities are increased together.
+results/proportional_restoration.csv,RO_only_added_K_RO_m3_h,m3/h,Additional RO capacity in the RO-only restoration case.
+results/proportional_restoration.csv,joint_added_K_RO_m3_h,m3/h,Additional RO capacity in the joint restoration case.
+results/proportional_restoration.csv,joint_added_K_Wtank_m3,m3,Additional water-tank capacity in the joint restoration case.
+results/proportional_restoration.csv,RO_only_annualized_added_investment_USD_yr,USD/yr,Annualized added investment for RO-only restoration.
+results/proportional_restoration.csv,joint_annualized_added_investment_USD_yr,USD/yr,Annualized added investment for joint RO and water-tank restoration.
+results/proportional_restoration.csv,joint_annualized_added_investment_saving_USD_yr,USD/yr,Annualized investment saving of joint restoration relative to RO-only restoration.
+results/proportional_restoration.csv,joint_annualized_added_investment_saving_percent,%,Annualized investment saving of joint restoration relative to RO-only restoration.
+results/proportional_restoration.csv,RO_only_threshold_objective_USD,USD/yr,Annual objective at the RO-only zero-shortage threshold.
+results/proportional_restoration.csv,joint_threshold_objective_USD,USD/yr,Annual objective at the joint zero-shortage threshold.
+results/proportional_restoration.csv,joint_total_objective_saving_USD,USD/yr,Annual objective saving of joint restoration relative to RO-only restoration.
+results/proportional_restoration.csv,joint_total_objective_saving_percent,%,Annual objective saving of joint restoration relative to RO-only restoration.
+results/independent_restoration.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
+results/independent_restoration.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
+results/independent_restoration.csv,independent_RO_factor,p.u.,RO capacity multiplier at the selected independent-restoration point.
+results/independent_restoration.csv,independent_tank_factor,p.u.,Water-tank capacity multiplier at the selected independent-restoration point.
+results/independent_restoration.csv,independent_added_RO_m3_h,m3/h,Additional RO capacity in the independent-restoration case.
+results/independent_restoration.csv,independent_added_tank_m3,m3,Additional water-tank capacity in the independent-restoration case.
+results/independent_restoration.csv,independent_annualized_added_investment_USD_yr,USD/yr,Annualized added investment in the independent-restoration case.
+results/independent_restoration.csv,independent_total_objective_USD_yr,USD/yr,Annual objective in the independent-restoration case.
+results/independent_restoration.csv,RO_only_annualized_added_investment_USD_yr,USD/yr,Annualized added investment for RO-only restoration.
+results/independent_restoration.csv,proportional_annualized_added_investment_USD_yr,USD/yr,Annualized added investment in the proportional restoration case.
+results/independent_restoration.csv,investment_saving_vs_RO_only_USD_yr,USD/yr,Annualized investment saving relative to RO-only restoration.
+results/independent_restoration.csv,investment_saving_vs_RO_only_percent,%,Annualized investment saving relative to RO-only restoration.
+results/independent_restoration.csv,investment_saving_vs_proportional_USD_yr,USD/yr,Annualized investment saving relative to proportional restoration.
+results/independent_restoration.csv,investment_saving_vs_proportional_percent,%,Annualized investment saving relative to proportional restoration.
+results/independent_restoration.csv,total_objective_saving_vs_RO_only_USD_yr,USD/yr,Annual objective saving relative to RO-only restoration.
+results/independent_restoration.csv,total_objective_saving_vs_RO_only_percent,%,Annual objective saving relative to RO-only restoration.
+results/independent_restoration.csv,total_objective_saving_vs_proportional_USD_yr,USD/yr,Annual objective saving relative to proportional restoration.
+results/independent_restoration.csv,total_objective_saving_vs_proportional_percent,%,Annual objective saving relative to proportional restoration.
+results/independent_restoration.csv,implied_noninvestment_cost_increase_vs_RO_only_USD_yr,USD/yr,Increase in non-investment cost relative to RO-only restoration.
+results/independent_restoration.csv,implied_noninvestment_cost_increase_vs_proportional_USD_yr,USD/yr,Increase in non-investment cost relative to proportional restoration.
+results/feedwater_sensitivity.csv,regime,-,Sensitivity case group.
+results/feedwater_sensitivity.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
+results/feedwater_sensitivity.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
+results/feedwater_sensitivity.csv,rho_L_per_kgH2,L/kg-H2,Electrolyzer feedwater requirement.
+results/feedwater_sensitivity.csv,full_objective_USD,USD/yr,Annual objective value for full-coupled planning.
+results/feedwater_sensitivity.csv,decoupled_objective_USD,USD/yr,Annual objective value for feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,reevaluated_objective_USD,USD/yr,Annual objective value for fixed-capacity full-coupled re-evaluation.
+results/feedwater_sensitivity.csv,decoupled_minus_full_USD,USD/yr,Difference between the feedwater-omitting sizing objective and the full-coupled planning objective.
+results/feedwater_sensitivity.csv,restoration_increment_USD,USD/yr,Increase in objective when the feedwater coupling is restored at the fixed decoupled capacities.
+results/feedwater_sensitivity.csv,reevaluated_minus_full_USD,USD/yr,Difference between the fixed-capacity re-evaluation objective and the full-coupled planning objective.
+results/feedwater_sensitivity.csv,reevaluated_minus_full_percent,%,Fixed-capacity re-evaluation objective difference relative to full-coupled planning.
+results/feedwater_sensitivity.csv,freshwater_shortage_reevaluated_m3,m3/yr,Annual freshwater shortage in fixed-capacity full-coupled re-evaluation.
+results/feedwater_sensitivity.csv,H2_shortage_reevaluated_kg,kg-H2/yr,Annual hydrogen service shortage in fixed-capacity full-coupled re-evaluation.
+results/feedwater_sensitivity.csv,total_EL_feedwater_full_m3,m3/yr,Annual electrolyzer feedwater use in full-coupled planning.
+results/feedwater_sensitivity.csv,feedwater_to_community_ratio_full,p.u.,Electrolyzer feedwater relative to community freshwater demand in full-coupled planning.
+results/feedwater_sensitivity.csv,K_RO_full,m3/h,RO capacity in full-coupled planning.
+results/feedwater_sensitivity.csv,K_RO_decoupled,m3/h,RO capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,K_RO_deviation_percent,%,RO capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/feedwater_sensitivity.csv,K_Wtank_full,m3,Water-tank capacity in full-coupled planning.
+results/feedwater_sensitivity.csv,K_Wtank_decoupled,m3,Water-tank capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,K_Wtank_deviation_percent,%,Water-tank capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/feedwater_sensitivity.csv,K_BESS_E_full,MWh,BESS energy capacity in full-coupled planning.
+results/feedwater_sensitivity.csv,K_BESS_E_decoupled,MWh,BESS energy capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,K_BESS_E_deviation_percent,%,BESS energy-capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/feedwater_sensitivity.csv,dec_K_PV,MW,PV capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,dec_K_WT,MW,Wind-turbine capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,dec_K_BESS_P,MW,BESS power capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,dec_K_BESS_E,MWh,BESS energy capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,dec_K_RO,m3/h,RO capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,dec_K_Wtank,m3,Water-tank capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,dec_K_EL,MW,Electrolyzer capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,dec_K_H2,kg-H2,Hydrogen-tank capacity in feedwater-omitting sizing.
+results/feedwater_sensitivity.csv,dec_K_FC,MW,Fuel-cell capacity in feedwater-omitting sizing.
+results/hydrogen_profile_sensitivity.csv,regime,-,Sensitivity case group.
+results/hydrogen_profile_sensitivity.csv,profile_key,-,Hydrogen service-profile case.
+results/hydrogen_profile_sensitivity.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
+results/hydrogen_profile_sensitivity.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
+results/hydrogen_profile_sensitivity.csv,full_objective_USD,USD/yr,Annual objective value for full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,decoupled_objective_USD,USD/yr,Annual objective value for feedwater-omitting sizing.
+results/hydrogen_profile_sensitivity.csv,reevaluated_objective_USD,USD/yr,Annual objective value for fixed-capacity full-coupled re-evaluation.
+results/hydrogen_profile_sensitivity.csv,decoupled_minus_full_USD,USD/yr,Difference between the feedwater-omitting sizing objective and the full-coupled planning objective.
+results/hydrogen_profile_sensitivity.csv,restoration_increment_USD,USD/yr,Increase in objective when the feedwater coupling is restored at the fixed decoupled capacities.
+results/hydrogen_profile_sensitivity.csv,reevaluated_minus_full_USD,USD/yr,Difference between the fixed-capacity re-evaluation objective and the full-coupled planning objective.
+results/hydrogen_profile_sensitivity.csv,reevaluated_minus_full_percent,%,Fixed-capacity re-evaluation objective difference relative to full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,freshwater_shortage_reevaluated_m3,m3/yr,Annual freshwater shortage in fixed-capacity full-coupled re-evaluation.
+results/hydrogen_profile_sensitivity.csv,H2_shortage_reevaluated_kg,kg-H2/yr,Annual hydrogen service shortage in fixed-capacity full-coupled re-evaluation.
+results/hydrogen_profile_sensitivity.csv,total_EL_feedwater_full_m3,m3/yr,Annual electrolyzer feedwater use in full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,feedwater_to_community_ratio_full,p.u.,Electrolyzer feedwater relative to community freshwater demand in full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,K_RO_full,m3/h,RO capacity in full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,K_RO_decoupled,m3/h,RO capacity in feedwater-omitting sizing.
+results/hydrogen_profile_sensitivity.csv,K_RO_deviation_percent,%,RO capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,K_Wtank_full,m3,Water-tank capacity in full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,K_Wtank_decoupled,m3,Water-tank capacity in feedwater-omitting sizing.
+results/hydrogen_profile_sensitivity.csv,K_Wtank_deviation_percent,%,Water-tank capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,K_BESS_E_full,MWh,BESS energy capacity in full-coupled planning.
+results/hydrogen_profile_sensitivity.csv,K_BESS_E_decoupled,MWh,BESS energy capacity in feedwater-omitting sizing.
+results/hydrogen_profile_sensitivity.csv,K_BESS_E_deviation_percent,%,BESS energy-capacity difference in feedwater-omitting sizing relative to full-coupled planning.
+results/pcc_carbon_grid.csv,PCC_limit_MW,MW,Symmetric grid import and export limit at the point of common coupling.
+results/pcc_carbon_grid.csv,carbon_price_USD_per_tCO2eq,USD/tCO2-eq,Carbon price applied to grid and diesel emissions.
+results/pcc_carbon_grid.csv,objective_USD,USD/yr,Annual objective value.
+results/pcc_carbon_grid.csv,carbon_payment_USD,USD/yr,Annual carbon payment included in the objective.
+results/pcc_carbon_grid.csv,pre_tax_resource_cost_USD,USD/yr,Annual objective excluding the carbon payment.
+results/pcc_carbon_grid.csv,total_CO2_tCO2eq_yr,tCO2-eq/yr,Annual grid and diesel greenhouse-gas emissions.
+results/pcc_carbon_grid.csv,total_diesel_MWh_yr,MWh/yr,Annual diesel generation.
+results/pcc_carbon_grid.csv,total_grid_import_MWh_yr,MWh/yr,Annual grid import energy.
+results/pcc_carbon_grid.csv,total_grid_export_MWh_yr,MWh/yr,Annual grid export energy.
+results/pcc_carbon_grid.csv,total_PV_MWh_yr,MWh/yr,Annual PV generation used by the system.
+results/pcc_carbon_grid.csv,total_WT_MWh_yr,MWh/yr,Annual wind generation used by the system.
+results/pcc_carbon_grid.csv,total_RE_curtailment_MWh_yr,MWh/yr,Annual renewable-energy curtailment.
+results/pcc_carbon_grid.csv,freshwater_shortage_m3,m3/yr,Annual freshwater shortage.
+results/pcc_carbon_grid.csv,H2_shortage_kg,kg-H2/yr,Annual hydrogen service shortage.
+results/pcc_carbon_grid.csv,max_grid_import_MW,MW,Maximum hourly grid import power.
+results/pcc_carbon_grid.csv,max_grid_export_MW,MW,Maximum hourly grid export power.
+results/pcc_carbon_grid.csv,PCC_import_binding_hours,h/yr,Number of hours at the grid import limit.
+results/pcc_carbon_grid.csv,PCC_export_binding_hours,h/yr,Number of hours at the grid export limit.
+results/pcc_carbon_grid.csv,negative_price_import_MWh,MWh/yr,Annual grid import energy during negative-price hours.
+results/pcc_carbon_grid.csv,negative_price_export_MWh,MWh/yr,Annual grid export energy during negative-price hours.
+results/pcc_carbon_grid.csv,K_PV,MW,Installed PV capacity.
+results/pcc_carbon_grid.csv,K_WT,MW,Installed wind-turbine capacity.
+results/pcc_carbon_grid.csv,K_BESS_P,MW,BESS power capacity.
+results/pcc_carbon_grid.csv,K_BESS_E,MWh,BESS energy capacity.
+results/pcc_carbon_grid.csv,K_RO,m3/h,RO production capacity.
+results/pcc_carbon_grid.csv,K_Wtank,m3,Water-tank capacity.
+results/pcc_carbon_grid.csv,K_EL,MW,Electrolyzer power capacity.
+results/pcc_carbon_grid.csv,K_H2,kg-H2,Hydrogen-tank capacity.
+results/pcc_carbon_grid.csv,K_FC,MW,Fuel-cell power capacity.
+results/selected_dispatch/*.csv,t,-,Sequential hourly index used by the optimization model.
+results/selected_dispatch/*.csv,datetime,YYYY-MM-DD HH:MM:SS,Hourly timestamp.
+results/selected_dispatch/*.csv,P_load_MW,MW,Electric load.
+results/selected_dispatch/*.csv,W_load_m3_h,m3/h,Community freshwater demand.
+results/selected_dispatch/*.csv,H2_load_kg_h,kg-H2/h,External hydrogen service demand.
+results/selected_dispatch/*.csv,phi_pv,p.u.,PV availability factor.
+results/selected_dispatch/*.csv,phi_wt,p.u.,Wind-turbine availability factor.
+results/selected_dispatch/*.csv,Ppv_MW,MW,PV power used.
+results/selected_dispatch/*.csv,Ppv_cur_MW,MW,PV curtailment.
+results/selected_dispatch/*.csv,Pwt_MW,MW,Wind power used.
+results/selected_dispatch/*.csv,Pwt_cur_MW,MW,Wind curtailment.
+results/selected_dispatch/*.csv,PDG_MW,MW,Diesel-generator power.
+results/selected_dispatch/*.csv,Pgin_MW,MW,Grid import power.
+results/selected_dispatch/*.csv,Pgout_MW,MW,Grid export power.
+results/selected_dispatch/*.csv,PBch_MW,MW,BESS charging power.
+results/selected_dispatch/*.csv,PBdis_MW,MW,BESS discharging power.
+results/selected_dispatch/*.csv,EB_MWh,MWh,BESS stored energy.
+results/selected_dispatch/*.csv,PRO_MW,MW,RO electric power.
+results/selected_dispatch/*.csv,WRO_m3_h,m3/h,RO water production.
+results/selected_dispatch/*.csv,SW_m3,m3,Water-tank inventory.
+results/selected_dispatch/*.csv,Wsh_m3_h,m3/h,Freshwater shortage.
+results/selected_dispatch/*.csv,PEL_MW,MW,Electrolyzer electric power.
+results/selected_dispatch/*.csv,HEL_kg_h,kg-H2/h,Electrolyzer hydrogen production.
+results/selected_dispatch/*.csv,WEL_m3_h,m3/h,Electrolyzer feedwater use.
+results/selected_dispatch/*.csv,PFC_MW,MW,Fuel-cell electric power.
+results/selected_dispatch/*.csv,HFC_kg_h,kg-H2/h,Hydrogen consumed by the fuel cell.
+results/selected_dispatch/*.csv,H2_served_kg_h,kg-H2/h,Hydrogen service supplied.
+results/selected_dispatch/*.csv,H2_shortage_kg_h,kg-H2/h,Hydrogen service shortage.
+results/selected_dispatch/*.csv,SH_kg,kg-H2,Hydrogen-tank inventory.

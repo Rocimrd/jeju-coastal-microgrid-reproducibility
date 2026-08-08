@@ -1,0 +1,20 @@
+--- Source_V28_1_recovered.cpp
++++ Source.cpp
+@@ -625,7 +625,7 @@
+         }
+         if (hasExplicitGridCap) {
+             p.P_grid_import_max_MW = explicitGridCap;
+-            p.P_grid_export_max_MW = std::min(p.P_grid_export_max_MW, explicitGridCap);
++            p.P_grid_export_max_MW = explicitGridCap;
+         }
+         if (hasExplicitH2Ub) {
+             p.K_H2_max_kg = std::max(0.0, explicitH2UbKg);
+@@ -683,7 +683,7 @@
+         if (sellAsSMP || hasExplicitSellPercent) {
+             const double sellMultiplier = sellAsSMP ? 1.0 : (explicitSellPercent / 100.0);
+             for (TimeRow& r : ts) {
+-                r.price_grid_out_usd_kwh = std::max(0.0, sellMultiplier * r.price_grid_in_usd_kwh);
++                r.price_grid_out_usd_kwh = sellMultiplier * r.price_grid_in_usd_kwh;
+             }
+         }
+         p.ro_SEC_kWh_per_m3 *= roSecMultiplier;

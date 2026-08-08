@@ -1,0 +1,30 @@
+Base-formulation reproduction record
+
+Date: 2026-08-07
+Solver: IBM ILOG CPLEX Optimization Studio 22.1.2
+Build: Release x64
+
+Full-coupled planning
+Objective: 4684826.40262 USD/yr
+K_RO: 102.007528867 m3/h
+K_Wtank: 2797.34969165 m3
+K_BESS_E: 5.2274548895 MWh
+
+Feedwater-omitting sizing benchmark
+Objective: 4680307.74272 USD/yr
+K_PV: 13.0387086103 MW
+K_WT: 10.0537460083 MW
+K_BESS_P: 1.04108779612 MW
+K_BESS_E: 5.21490457576 MWh
+K_RO: 101.435750491 m3/h
+K_Wtank: 2828.20141822 m3
+K_EL: 5.58071024477 MW
+K_H2: 5625.8806632 kg-H2
+K_FC: 0.458912203884 MW
+
+Fixed-capacity full-coupled re-evaluation
+Objective: 4685310.04714 USD/yr
+Freshwater shortage: 0 m3/yr
+H2 shortage: 1.06581e-13 kg-H2/yr
+
+The rebuilt source reproduced these reference values within the tolerances defined in `validation/compare_base_run.py`.

@@ -1,0 +1,2 @@
+model_input_H2_FLAT24.csv: annual=365000.000000000000 kg, max daily error=1.364e-12 kg
+model_input_H2_SHIFT12.csv: annual=365000.000000000000 kg, max daily error=4.547e-13 kg

@@ -1,0 +1,23 @@
+group,scenario,metric,value,unit
+Base comparison,"H2=1000 kg/day, water=100%",Full-coupled objective,4684826.40262,USD/yr
+Base comparison,"H2=1000 kg/day, water=100%",Decoupled objective,4680307.74272,USD/yr
+Base comparison,"H2=1000 kg/day, water=100%",Re-evaluated objective,4685310.04714,USD/yr
+Base comparison,"H2=1000 kg/day, water=100%",Net difference,0.0103236380270158,%
+Base comparison,"H2=1000 kg/day, water=100%",RO deviation,-0.560525661171842,%
+Coupling grid,"H2=10000 kg/day, water=50%",Freshwater shortage,8281.81099797,m3/yr
+Coupling grid,"H2=10000 kg/day, water=50%",RO deviation,-10.7518568542601,%
+Coupling grid,"H2=10000 kg/day, water=50%",Net penalty,3.63492127531525,%
+Proportional restoration,"H2=3000 kg/day, water=100%",RO-only restoration,7.89062500000002,%
+Proportional restoration,"H2=3000 kg/day, water=100%",Coordinated restoration,6.87500000000001,%
+Proportional restoration,"H2=5000 kg/day, water=100%",RO-only restoration,15.859375,%
+Proportional restoration,"H2=5000 kg/day, water=100%",Coordinated restoration,13.4375,%
+Proportional restoration,"H2=8000 kg/day, water=100%",RO-only restoration,30.56640625,%
+Proportional restoration,"H2=8000 kg/day, water=100%",Coordinated restoration,24.8046875,%
+Proportional restoration,"H2=10000 kg/day, water=100%",RO-only restoration,39.6484375,%
+Proportional restoration,"H2=10000 kg/day, water=100%",Coordinated restoration,32.12890625,%
+Independent restoration,"H2=5000 kg/day, water=100%",RO factor,1.005,-
+Independent restoration,"H2=5000 kg/day, water=100%",Water-tank factor,1.955,-
+Independent restoration,"H2=5000 kg/day, water=100%",Investment saving vs RO-only,62.14419227968304,%
+Independent restoration,"H2=10000 kg/day, water=100%",RO factor,1.03,-
+Independent restoration,"H2=10000 kg/day, water=100%",Water-tank factor,2.75,-
+Independent restoration,"H2=10000 kg/day, water=100%",Investment saving vs RO-only,65.9781842868097,%

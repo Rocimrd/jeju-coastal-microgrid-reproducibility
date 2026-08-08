@@ -1,0 +1,39 @@
+{
+  "case_tag": "REPOSITORY_BASE_WATER100_TAX150_H2D1000_GRIDCAP1.5_SELL80_H2UB100000_ELUB80_FCUB40_PVUB120_WTUB150",
+  "objective_USD": {
+    "full_coupled_planning": 4684826.40262,
+    "feedwater_omitting_sizing_benchmark": 4680307.74272,
+    "fixed_capacity_full_coupled_re_evaluation": 4685310.04714
+  },
+  "capacities": {
+    "full_coupled_planning": {
+      "K_RO": 102.007528866855,
+      "K_Wtank": 2797.34969164963,
+      "K_BESS_E": 5.22745488950065
+    },
+    "feedwater_omitting_sizing_benchmark": {
+      "K_PV": 13.0387086102534,
+      "K_WT": 10.0537460083242,
+      "K_BESS_P": 1.0410877961159,
+      "K_BESS_E": 5.21490457576269,
+      "K_RO": 101.435750491229,
+      "K_Wtank": 2828.20141821779,
+      "K_EL": 5.58071024476865,
+      "K_H2": 5625.88066320377,
+      "K_FC": 0.458912203884096
+    }
+  },
+  "summary": {
+    "fixed_capacity_full_coupled_re_evaluation": {
+      "total_freshwater_shortage_m3": 0.0,
+      "total_H2_shortage_kg": 1.06581410364e-13
+    }
+  },
+  "tolerances": {
+    "objective_relative": 2e-06,
+    "capacity_relative": 0.0002,
+    "capacity_absolute": 0.0002,
+    "base_freshwater_shortage_m3": 1e-06,
+    "base_h2_shortage_kg": 1e-06
+  }
+}

@@ -1,0 +1,7 @@
+regime,hydrogen_service_kg_day,community_water_scale_percent,feedwater_L_per_kgH2
+mild,1000,100,10
+mild,1000,100,13
+mild,1000,100,15
+high,8000,50,10
+high,8000,50,13
+high,8000,50,15

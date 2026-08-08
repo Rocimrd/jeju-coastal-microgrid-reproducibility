@@ -1,0 +1,57 @@
+category,parameter,value,unit,source,use
+Study boundary,Simulation horizon,8760,h,hourly_input.csv,Model input
+Study boundary,Electric-load peak,5.0,MW,hourly_input.csv,Model input
+Study boundary,Electric-load mean,2.65,MW,hourly_input.csv,Model input
+Study boundary,Electric-load annual energy,23214.0,MWh/yr,hourly_input.csv,Derived value
+Study boundary,Community freshwater demand,2000.0,m3/day,hourly_input.csv,Model input
+Study boundary,External H2 service,1000.0,kg/day,hourly_input.csv,Model input
+Market,Exchange rate,1422.0,KRW/USD,parameters.json,Model input
+Market,Grid import price,signed hourly SMP,USD/kWh,hourly_input.csv,Hourly price series
+Market,Grid export price,0.8 x signed hourly SMP,USD/kWh,Study rule,Hourly price series
+Market,Symmetric PCC limit,1.5,MW,Study setting,Base case
+Policy,Carbon price,150.0,USD/tCO2-eq,Study setting,Base case
+Policy,Grid emission factor,0.4173,tCO2-eq/MWh,parameters.json,Model input
+Policy,Freshwater-shortage penalty,100.0,USD/m3,parameters.json,Model input
+Policy,H2-shortage penalty,2500.0,USD/kg-H2,parameters.json,Model input
+PV,CAPEX,1560.0,USD/kW,parameters.json,Model parameter
+PV,Fixed O&M,22.0,USD/kW-yr,parameters.json,Model parameter
+PV,Lifetime,30,yr,parameters.json,Model parameter
+WT,CAPEX,1349.0,USD/kW,parameters.json,Model parameter
+WT,Fixed O&M,43.0,USD/kW-yr,parameters.json,Model parameter
+WT,Lifetime,30,yr,parameters.json,Model parameter
+BESS,Power CAPEX,246.0,USD/kW,parameters.json,Model parameter
+BESS,Energy CAPEX,320.0,USD/kWh,parameters.json,Model parameter
+BESS,Charge/discharge efficiency,0.95,p.u. each,parameters.json,Model parameter
+BESS,Lifetime,15,yr,parameters.json,Model parameter
+BESS,Duration range,1-8,h,parameters.json,Model parameter
+RO,SEC,2.864,kWh/m3,parameters.json,Model parameter
+RO,CAPEX,1500.0,USD/(m3/day),parameters.json,Model parameter
+RO,Variable O&M,0.35,USD/m3,parameters.json,Model parameter
+RO,Lifetime,25,yr,parameters.json,Model parameter
+Water tank,CAPEX,80.0,USD/m3,parameters.json,Model parameter
+Water tank,Fixed O&M,0.01,fraction CAPEX/yr,parameters.json,Model parameter
+Water tank,Lifetime,30,yr,parameters.json,Model parameter
+PEM electrolyzer,Electricity consumption,49.9,kWh/kg-H2,parameters.json,Model parameter
+PEM electrolyzer,Feedwater consumption,13.0,L/kg-H2,parameters.json,Model parameter
+PEM electrolyzer,CAPEX,1000.0,USD/kW,parameters.json,Model parameter
+PEM electrolyzer,Lifetime,20,yr,parameters.json,Model parameter
+H2 tank,CAPEX,574.0,USD/kg-H2,parameters.json,Model parameter
+H2 tank,Lifetime,25,yr,parameters.json,Model parameter
+PEMFC,CAPEX,1452.0,USD/kW,parameters.json,Model parameter
+PEMFC,Electric efficiency,0.5,p.u.,parameters.json,Model parameter
+PEMFC,H2 conversion,16.67,kWh/kg-H2,parameters.json,Model parameter
+PEMFC,Lifetime,15,yr,parameters.json,Model parameter
+Diesel,Variable cost,0.306302879981247,USD/kWh,Derived from fuel and emission data,Model parameter
+Diesel,Operational EF,0.708543971022556,tCO2-eq/MWh,Derived from fuel and emission data,Model parameter
+Diesel,Fuel price,1618.39,KRW/L,"KNOC Opinet, Jeju 2025",Input to diesel cost
+Diesel,Specific fuel consumption,0.269133333333333,L/kWh,Caterpillar 3516C data,Input to diesel cost
+Finance,Discount rate,0.035,p.u.,parameters.json,Model parameter
+Numerical bound,PV upper bound,120.0,MW,parameters.json,Capacity bound
+Numerical bound,WT upper bound,150.0,MW,parameters.json,Capacity bound
+Numerical bound,BESS power upper bound,8.0,MW,parameters.json,Capacity bound
+Numerical bound,BESS energy upper bound,60.0,MWh,parameters.json,Capacity bound
+Numerical bound,RO upper bound,400.0,m3/h,parameters.json,Capacity bound
+Numerical bound,Water-tank upper bound,10000.0,m3,parameters.json,Capacity bound
+Numerical bound,Electrolyzer upper bound,80.0,MW,parameters.json,Capacity bound
+Numerical bound,H2-tank upper bound,100000.0,kg-H2,parameters.json,Capacity bound
+Numerical bound,Fuel-cell upper bound,40.0,MW,parameters.json,Capacity bound

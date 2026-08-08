@@ -1,0 +1,212 @@
+{
+  "metadata": {
+    "study": "Jeju coastal microgrid planning and operation study",
+    "horizon_hours": 8760,
+    "input_file": "model_input_full.csv",
+    "market_price_rule": "Grid import price equals signed hourly SMP. Grid export price equals 0.8 times signed hourly SMP.",
+    "exchange_rate_KRW_per_USD": 1422.0,
+    "electrolyzer_feedwater_L_per_kgH2": 13.0,
+    "principal_carbon_price_USD_per_tCO2eq": 150.0,
+    "principal_symmetric_PCC_limit_MW": 1.5,
+    "solver": "IBM ILOG CPLEX Optimization Studio 22.1.2"
+  },
+  "site_and_scale": {
+    "target_peak_load_MW": 5.0,
+    "jeju_load_peak_MW_after_imputation": 1141.321,
+    "electric_load_scale_factor": 0.004380888461703588,
+    "water_scenario": "S2000_m3day",
+    "water_base_m3_day": 2000.0,
+    "exchange_rate_KRW_per_USD": 1422.0,
+    "local_coastal_load_mean_MW": 2.6499999999999995,
+    "local_coastal_load_factor": 0.5299999999999999,
+    "electric_load_source": "synthetic local coastal composite load derived from Jeju-wide scaled reference plus residential/commercial/tourism/pumping/EV-shaped components",
+    "v21_electric_mean_MW": 2.65,
+    "v21_electric_peak_MW": 5.0,
+    "v21_water_mean_m3_day": 2000.0000000000002,
+    "v21_h2_mean_kg_day": 1000.0,
+    "v21_input_file": "timeseries_2025_final_refined_coastal_h2hub_v21_2.csv"
+  },
+  "capacity_bounds": {
+    "K_PV_max_MW": 120.0,
+    "K_WT_max_MW": 150.0,
+    "K_BESS_P_max_MW": 8.0,
+    "K_BESS_E_max_MWh": 60.0,
+    "K_RO_max_m3_h": 400.0,
+    "K_Wtank_max_m3": 10000.0,
+    "K_EL_max_MW": 80.0,
+    "K_H2_max_kg": 100000.0,
+    "K_FC_max_MW": 40.0,
+    "P_DG_max_MW": 2.0,
+    "P_grid_import_max_MW": 1.5,
+    "P_grid_export_max_MW": 1.5
+  },
+  "finance": {
+    "discount_rate": 0.035
+  },
+  "pv": {
+    "capex_USD_per_kW": 1560.0,
+    "fixed_om_USD_per_kW_yr": 22.0,
+    "variable_om_USD_per_MWh": 0.0,
+    "lifetime_yr": 30,
+    "G_STC_W_m2": 1000.0,
+    "T_STC_C": 25.0,
+    "NOCT_C": 45.0,
+    "temperature_coefficient_1_per_C": -0.0035,
+    "derating_factor": 0.9,
+    "source_note": "NREL ATB 2024 utility-scale PV cost data and standard crystalline-silicon performance assumptions."
+  },
+  "wind": {
+    "capex_USD_per_kW": 1349.0,
+    "fixed_om_USD_per_kW_yr": 43.0,
+    "variable_om_USD_per_MWh": 0.0,
+    "lifetime_yr": 30,
+    "rated_power_MW_per_turbine": 3.3,
+    "rotor_diameter_m": 148.0,
+    "source_wind_height_m": 50.0,
+    "hub_height_m": 100.0,
+    "wind_shear_exponent": 0.14,
+    "cut_in_m_s": 3.0,
+    "rated_m_s": 11.5,
+    "cut_out_m_s": 25.0,
+    "source_note": "NREL ATB 2024b land-based wind cost data and turbine performance assumptions."
+  },
+  "bess": {
+    "power_capex_USD_per_kW": 246.0,
+    "energy_capex_USD_per_kWh": 320.0,
+    "fixed_om_fraction_of_capex_per_yr": 0.025,
+    "variable_om_USD_per_MWh_throughput": 0.5,
+    "lifetime_yr": 15,
+    "eta_ch": 0.95,
+    "eta_dis": 0.95,
+    "soc_min": 0.1,
+    "soc_max": 0.9,
+    "soc_initial": 0.5,
+    "duration_min_h": 1.0,
+    "duration_max_h": 8.0,
+    "source_note": "NREL utility-scale battery storage cost data and standard Li-ion operating assumptions."
+  },
+  "ro": {
+    "SEC_kWh_per_m3": 2.864,
+    "capex_USD_per_m3_day": 1500.0,
+    "capex_USD_per_m3_h": 36000.0,
+    "fixed_om_fraction_of_capex_per_yr": 0.0,
+    "variable_om_USD_per_m3": 0.35,
+    "lifetime_yr": 25,
+    "source_note": "RO planning values used in the model: 2.864 kWh/m3 SEC, 1500 USD/(m3/day) CAPEX, and 0.35 USD/m3 variable O&M."
+  },
+  "water_tank": {
+    "capex_USD_per_m3": 80.0,
+    "fixed_om_fraction_of_capex_per_yr": 0.01,
+    "variable_om_USD_per_m3": 0.0,
+    "lifetime_yr": 30,
+    "level_min": 0.1,
+    "level_max": 1.0,
+    "level_initial": 0.5,
+    "source_note": "Planning value from the cited literature."
+  },
+  "electrolyzer": {
+    "kappa_EL_kWh_per_kgH2": 49.9,
+    "rho_EL_m3_per_kgH2": 0.013,
+    "capex_USD_per_kW": 1000.0,
+    "fixed_om_fraction_of_capex_per_yr": 0.02,
+    "variable_om_USD_per_MWh": 0.0,
+    "lifetime_yr": 20,
+    "source_note": "Commercial PEM electrolyzer product data: 13 L/kg-H2 feedwater and 49.9 kWh/kg-H2 electricity use."
+  },
+  "h2_tank": {
+    "capex_USD_per_kgH2": 574.0,
+    "fixed_om_fraction_of_capex_per_yr": 0.01,
+    "variable_om_USD_per_kgH2": 0.0,
+    "lifetime_yr": 25,
+    "level_min": 0.05,
+    "level_max": 1.0,
+    "level_initial": 0.5,
+    "source_note": "Jeju Haengwon buffer-tank value checked against compressed H2 storage cost ranges."
+  },
+  "fuel_cell": {
+    "capex_USD_per_kW": 1452.0,
+    "fixed_om_USD_per_kW_yr": 13.43,
+    "variable_om_USD_per_MWh": 0.5125,
+    "lifetime_yr": 15,
+    "eta_FC_electric": 0.5,
+    "kappa_FC_kWh_per_kgH2": 16.67,
+    "source_note": "Stationary PEM fuel-cell cost data from the cited literature."
+  },
+  "diesel": {
+    "P_DG_max_MW": 2.0,
+    "variable_cost_USD_per_kWh": 0.306302879981247,
+    "emission_factor_tCO2_per_MWh": 0.708543971022556,
+    "min_output_MW": 0.0,
+    "ramp_limit_used": false,
+    "source_note": "Diesel emission factor derived from 403.7 L/h at 1500 kW, NCV 35.3 MJ/L, 20.090 tC/TJ, CH4 0.10 kg/TJ, N2O 3.45 kg/TJ, and IPCC AR5 GWP100 values of 28 and 265.",
+    "diesel_fuel_consumption_L_per_h": 403.7,
+    "diesel_reference_output_kW": 1500.0,
+    "diesel_specific_fuel_consumption_L_per_kWh": 0.269133333333333,
+    "diesel_fuel_price_KRW_per_L": 1618.39,
+    "exchange_rate_KRW_per_USD": 1422.0,
+    "variable_cost_derivation": "403.7 L/h / 1500 kW * 1618.39 KRW/L / 1422.0 KRW/USD",
+    "diesel_net_calorific_value_MJ_per_L": 35.3,
+    "diesel_carbon_emission_factor_tC_per_TJ": 20.09,
+    "diesel_CH4_emission_factor_kg_per_TJ": 0.1,
+    "diesel_N2O_emission_factor_kg_per_TJ": 3.45,
+    "IPCC_AR5_GWP100_CH4": 28,
+    "IPCC_AR5_GWP100_N2O": 265,
+    "emission_factor_derivation": "(403.7/1500 L/kWh)*1000*35.3/1e6*{20.090*44/12+0.10/1000*28+3.45/1000*265}"
+  },
+  "grid": {
+    "P_grid_import_max_MW": 1.5,
+    "P_grid_export_max_MW": 1.5,
+    "emission_factor_tCO2eq_per_MWh": 0.4173,
+    "import_price_source": "Signed Jeju 2025 hourly SMP in the hourly input file.",
+    "export_price_policy": "0.8 times the signed Jeju 2025 hourly SMP in the hourly input file."
+  },
+  "shortage_and_policy": {
+    "freshwater_shortage_penalty_USD_per_m3": 100.0,
+    "carbon_tax_base_USD_per_tCO2": 150.0,
+    "carbon_tax_sweep_USD_per_tCO2": [
+      0,
+      50,
+      100,
+      150,
+      200
+    ],
+    "carbon_cap_ratio_sweep_vs_C7": [
+      1.0,
+      0.9,
+      0.8,
+      0.7,
+      0.6,
+      0.5
+    ],
+    "carbon_cap_excess_penalty_USD_per_tCO2": 300.0,
+    "hydrogen_shortage_penalty_USD_per_kg": 2500.0,
+    "principal_result_carbon_tax_USD_per_tCO2": 150.0,
+    "principal_symmetric_PCC_limit_MW": 1.5
+  },
+  "water_profile_finalization": {
+    "modified": true,
+    "reason": "The normalized water-demand shape was adjusted to reduce the midday peak and high early-morning values.",
+    "method": "The normalized hourly fractions were replaced while preserving the daily and annual totals.",
+    "daily_total_preserved": true,
+    "annual_total_preserved": true,
+    "max_daily_total_error_m3": 2.2737367544323206e-13,
+    "profile_table_file": "water_profile_old_vs_final.csv"
+  },
+  "local_load_revision": {
+    "modified": true,
+    "reason": "A local composite profile was used because direct scaling of the Jeju-wide profile reduces local peak and ramp variation.",
+    "target_peak_MW": 5.0,
+    "target_mean_MW": 2.6499999999999995,
+    "target_load_factor": 0.5299999999999999,
+    "original_mean_MW": 3.2186153750308515,
+    "original_load_factor": 0.6437230750061703,
+    "components": [
+      "residential morning/evening",
+      "commercial/daytime",
+      "water-correlated pumping",
+      "tourism/seasonal/weekend",
+      "EV evening",
+      "Jeju-wide reference residual shape"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+regime,hydrogen_service_kg_day,community_water_scale_percent,profile
+mild,1000,100,CURRENT
+mild,1000,100,FLAT24
+mild,1000,100,SHIFT12
+high,8000,50,CURRENT
+high,8000,50,FLAT24
+high,8000,50,SHIFT12

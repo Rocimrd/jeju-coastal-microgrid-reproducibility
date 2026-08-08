@@ -1,0 +1,13 @@
+item,source,status,notes
+PV and wind hourly resource,NASA POWER,Processed series included,Used to derive PV and wind availability profiles
+Freshwater demand,Jeju water remote integrated metering,Processed series included,Profile scaled to the study demand level
+Electric load,Jeju-wide reference and local coastal composite,Processed series included,Local hourly profile is a synthetic composite rather than direct site metering
+Grid import price,Jeju 2025 hourly SMP,Processed series included,Import price follows the signed hourly SMP
+Grid export price,Study rule,Processed series included,Export price is 0.8 times the signed import-price basis
+Exchange rate,2025 annual average,Value included,1422 KRW/USD
+Diesel price,KNOC Opinet Jeju 2025 average,Value included,1618.39 KRW/L
+Diesel specific fuel consumption,Caterpillar 3516C technical data,Value included,403.7 L/h at 1500 kW
+Diesel emission factors,GIR 2025 national factors and IPCC AR5 GWP100,Derived value included,0.708543971022556 tCO2-eq/MWh
+Electrolyzer water and electricity,Commercial PEM electrolyzer product data,Values included,13 L/kg-H2 and 49.9 kWh/kg-H2
+PV WT and BESS costs,NREL cost references,Values included,See parameters.json and the article references
+RO water tank H2 tank and PEMFC parameters,Cited journal and technical literature,Values included,See parameters.json and the article references

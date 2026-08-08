@@ -1,0 +1,5 @@
+H2_demand_kg_day,water_scale_percent,policies
+3000,100,RO_only;proportional_RO_and_water_tank
+5000,100,RO_only;proportional_RO_and_water_tank
+8000,100,RO_only;proportional_RO_and_water_tank
+10000,100,RO_only;proportional_RO_and_water_tank
