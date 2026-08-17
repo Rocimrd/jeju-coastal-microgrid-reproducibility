@@ -1,0 +1,8 @@
+﻿water scales = 50,75,100,125,150 percent
+H2 service = 1000,3000,5000,8000,10000 kg-H2/day
+formulations = C1 fully coupled reference; C2 feedwater-omitting benchmark
+epsilon = 0.0001
+baseline MIP gap = 1E-06
+range MIP gap = 1E-06
+time limit = 3600 s
+objective cap = (1 + epsilon) times the feasible economic objective from the tighter baseline solve

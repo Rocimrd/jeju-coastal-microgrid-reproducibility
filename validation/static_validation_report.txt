@@ -47,7 +47,7 @@ input_match_grid_export_price_USD_per_kWh: PASS (paper-compact=1.110e-16, paper-
 datetime_match: PASS
 result_count_base_case_summary.csv: PASS (1)
 result_count_coupling_grid.csv: PASS (25)
-result_count_service_priority_sensitivity.csv: PASS (16)
+result_count_absolute_penalty_scaling.csv: PASS (16)
 result_count_proportional_restoration.csv: PASS (4)
 result_count_independent_restoration.csv: PASS (2)
 result_count_feedwater_sensitivity.csv: PASS (6)

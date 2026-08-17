@@ -63,21 +63,21 @@ results/coupling_grid.csv,K_BESS_E_full_MWh,MWh,BESS energy capacity in full-cou
 results/coupling_grid.csv,K_BESS_E_decoupled_MWh,MWh,BESS energy capacity in feedwater-omitting sizing.
 results/coupling_grid.csv,K_BESS_E_deviation_percent,%,BESS energy-capacity difference in feedwater-omitting sizing relative to full-coupled planning.
 results/coupling_grid.csv,minimum_water_inventory_reevaluated_m3,m3,Minimum water-tank inventory during fixed-capacity full-coupled re-evaluation.
-results/service_priority_sensitivity.csv,penalty_level,-,Shortage-penalty case label.
-results/service_priority_sensitivity.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
-results/service_priority_sensitivity.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
-results/service_priority_sensitivity.csv,freshwater_shortage_penalty_USD_per_m3,USD/m3,Freshwater shortage penalty.
-results/service_priority_sensitivity.csv,hydrogen_shortage_penalty_USD_per_kg,USD/kg-H2,Hydrogen shortage penalty.
-results/service_priority_sensitivity.csv,objective_USD,USD/yr,Annual objective value.
-results/service_priority_sensitivity.csv,freshwater_shortage_m3,m3/yr,Annual freshwater shortage.
-results/service_priority_sensitivity.csv,freshwater_shortage_hours,h/yr,Number of hours with freshwater shortage.
-results/service_priority_sensitivity.csv,H2_shortage_kg,kg-H2/yr,Annual hydrogen service shortage.
-results/service_priority_sensitivity.csv,penalty_excluded_objective_proxy_USD,USD/yr,Annual objective after subtracting freshwater and hydrogen shortage penalties.
-results/service_priority_sensitivity.csv,total_grid_import_MWh,MWh/yr,Annual grid import energy.
-results/service_priority_sensitivity.csv,total_grid_export_MWh,MWh/yr,Annual grid export energy.
-results/service_priority_sensitivity.csv,total_diesel_MWh,MWh/yr,Annual diesel generation.
-results/service_priority_sensitivity.csv,total_CO2_t,tCO2-eq/yr,Annual grid and diesel greenhouse-gas emissions.
-results/service_priority_sensitivity.csv,negative_price_export_MWh,MWh/yr,Annual grid export energy during negative-price hours.
+results/absolute_penalty_scaling.csv,penalty_level,-,Shortage-penalty case label.
+results/absolute_penalty_scaling.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
+results/absolute_penalty_scaling.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
+results/absolute_penalty_scaling.csv,freshwater_shortage_penalty_USD_per_m3,USD/m3,Freshwater shortage penalty.
+results/absolute_penalty_scaling.csv,hydrogen_shortage_penalty_USD_per_kg,USD/kg-H2,Hydrogen shortage penalty.
+results/absolute_penalty_scaling.csv,objective_USD,USD/yr,Annual objective value.
+results/absolute_penalty_scaling.csv,freshwater_shortage_m3,m3/yr,Annual freshwater shortage.
+results/absolute_penalty_scaling.csv,freshwater_shortage_hours,h/yr,Number of hours with freshwater shortage.
+results/absolute_penalty_scaling.csv,H2_shortage_kg,kg-H2/yr,Annual hydrogen service shortage.
+results/absolute_penalty_scaling.csv,penalty_excluded_objective_proxy_USD,USD/yr,Annual objective after subtracting freshwater and hydrogen shortage penalties.
+results/absolute_penalty_scaling.csv,total_grid_import_MWh,MWh/yr,Annual grid import energy.
+results/absolute_penalty_scaling.csv,total_grid_export_MWh,MWh/yr,Annual grid export energy.
+results/absolute_penalty_scaling.csv,total_diesel_MWh,MWh/yr,Annual diesel generation.
+results/absolute_penalty_scaling.csv,total_CO2_t,tCO2-eq/yr,Annual grid and diesel greenhouse-gas emissions.
+results/absolute_penalty_scaling.csv,negative_price_export_MWh,MWh/yr,Annual grid export energy during negative-price hours.
 results/proportional_restoration.csv,H2_demand_kg_day,kg-H2/day,Average external hydrogen service demand.
 results/proportional_restoration.csv,water_scale_percent,%,Community freshwater demand relative to the base water demand.
 results/proportional_restoration.csv,RO_only_restoration_percent,%,RO capacity increase required for zero freshwater shortage with the water tank fixed.
@@ -229,3 +229,9 @@ results/selected_dispatch/*.csv,HFC_kg_h,kg-H2/h,Hydrogen consumed by the fuel c
 results/selected_dispatch/*.csv,H2_served_kg_h,kg-H2/h,Hydrogen service supplied.
 results/selected_dispatch/*.csv,H2_shortage_kg_h,kg-H2/h,Hydrogen service shortage.
 results/selected_dispatch/*.csv,SH_kg,kg-H2,Hydrogen-tank inventory.
+paper_data/Data_S4_NearOptimal_RO_All_Runs.csv,audit_mode,-,Near-optimal audit mode: BASE, MINRO, or MAXRO.
+paper_data/Data_S4_NearOptimal_RO_All_Runs.csv,cplex_status,-,CPLEX solution status.
+paper_data/Data_S4_NearOptimal_RO_All_Runs.csv,K_RO_m3_h,m3/h,RO capacity for the audit solve.
+paper_data/Data_S4_NearOptimal_RO_All_Runs.csv,best_bound,-,Final CPLEX best bound for the active audit objective.
+paper_data/Data_S4_NearOptimal_RO_All_Runs.csv,achieved_relative_mip_gap,-,Achieved relative MIP gap.
+paper_data/Data_S5_Hard_Service_Result.csv,hard_service_status,-,CPLEX status with both service shortages fixed to zero.

@@ -1,0 +1,2 @@
+freshwater_demand_scale_percent,external_H2_service_kg_H2_day,PCC_limit_MW,carbon_price_USD_tCO2eq,ordinary_reevaluation_status,ordinary_freshwater_shortage_m3_yr,ordinary_H2_shortage_kg_H2_yr,hard_service_status,hard_service_freshwater_shortage_constraint,hard_service_H2_shortage_constraint
+50,8000,1.5,150,Optimal,5918.31013331,1.81898940355e-12,Infeasible,0 in every hour,0 in every hour

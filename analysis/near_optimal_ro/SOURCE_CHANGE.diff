@@ -1,0 +1,354 @@
+--- Source_v1_2_hard_service.cpp
++++ Source_nearopt_RO_audit.cpp
+@@ -7,6 +7,7 @@
+ //
+ // Build target: Release x64, C++17, IBM ILOG CPLEX Optimization Studio 22.1.2.
+ // Single-case use: JejuFullCoupled24h.exe --single input.csv params.json output CASE_ID [capacity.csv]
++// RO audit use: JejuFullCoupled24h.exe --audit input.csv params.json output CASE_ID MODE ECON_UB MIP_GAP TIME_LIMIT_S
+ 
+ #include <cstdarg>
+ #include <cstdio>
+@@ -16,6 +17,7 @@
+ 
+ #include <algorithm>
+ #include <cmath>
++#include <chrono>
+ #include <fstream>
+ #include <iomanip>
+ #include <iostream>
+@@ -437,11 +439,39 @@
+     }
+ }
+ 
++
++enum class AuditMode {
++    None,
++    BaseEconomic,
++    MinRO,
++    MaxRO
++};
++
++static const char* auditModeName(AuditMode mode) {
++    switch (mode) {
++    case AuditMode::BaseEconomic: return "BASE";
++    case AuditMode::MinRO: return "MINRO";
++    case AuditMode::MaxRO: return "MAXRO";
++    default: return "NONE";
++    }
++}
++
++static AuditMode parseAuditMode(const std::string& s) {
++    if (s == "BASE") return AuditMode::BaseEconomic;
++    if (s == "MINRO") return AuditMode::MinRO;
++    if (s == "MAXRO") return AuditMode::MaxRO;
++    throw std::runtime_error("Unknown audit mode: " + s);
++}
++
+ static int runModel(const std::string& tsPathInput,
+                     const std::string& paramPathInput,
+                     const std::string& outDirInput,
+                     const std::string& caseIdInput,
+-                    const std::string& capFixPathInput) {
++                    const std::string& capFixPathInput,
++                    AuditMode auditMode = AuditMode::None,
++                    double nearOptEconomicUB = -1.0,
++                    double solverMipGap = 1.0e-4,
++                    double solverTimeLimitSec = 3600.0) {
+     std::string tsPath = tsPathInput;
+     std::string paramPath = paramPathInput;
+     std::string outDir = outDirInput;
+@@ -456,6 +486,20 @@
+ 
+     if (hardService && !isC3) {
+         std::cerr << "HARDSERVICE is only valid for fixed-capacity C3 re-evaluation." << std::endl;
++        return 4;
++    }
++
++    const bool nearOptRangeMode = (auditMode == AuditMode::MinRO || auditMode == AuditMode::MaxRO);
++    if (auditMode != AuditMode::None && isC3) {
++        std::cerr << "Near-optimal RO audit is defined only for C1/C2 planning formulations." << std::endl;
++        return 4;
++    }
++    if (nearOptRangeMode && (!(nearOptEconomicUB > 0.0) || !std::isfinite(nearOptEconomicUB))) {
++        std::cerr << "Near-optimal RO audit requires a positive finite economic-objective upper bound." << std::endl;
++        return 4;
++    }
++    if (!(solverMipGap > 0.0) || !(solverTimeLimitSec > 0.0)) {
++        std::cerr << "Invalid solver audit settings." << std::endl;
+         return 4;
+     }
+ 
+@@ -890,59 +934,66 @@
+ 
+             IloNumVar EcapExcess(env, 0.0, IloInfinity, ILOFLOAT, "Ecap_excess_tCO2");
+             IloExpr annualCO2expr(env);
+-            IloExpr obj(env);
+-
+-            obj += capitalScale * (crf(p.discount_rate, p.pv_lifetime_yr) * p.pv_capex_USD_per_kW + p.pv_fom_USD_per_kW_yr) * 1000.0 * K_PV;
+-            obj += capitalScale * (crf(p.discount_rate, p.wt_lifetime_yr) * p.wt_capex_USD_per_kW + p.wt_fom_USD_per_kW_yr) * 1000.0 * K_WT;
+-
+-            obj += capitalScale * (crf(p.discount_rate, p.bess_lifetime_yr) * p.bess_p_capex_USD_per_kW + p.bess_fom_fraction * p.bess_p_capex_USD_per_kW) * 1000.0 * K_BP;
+-            obj += capitalScale * (crf(p.discount_rate, p.bess_lifetime_yr) * p.bess_e_capex_USD_per_kWh + p.bess_fom_fraction * p.bess_e_capex_USD_per_kWh) * 1000.0 * K_BE;
+-
+-            obj += capitalScale * (crf(p.discount_rate, p.ro_lifetime_yr) * p.ro_capex_USD_per_m3_h + p.ro_fom_fraction * p.ro_capex_USD_per_m3_h) * K_RO;
+-            obj += capitalScale * (crf(p.discount_rate, p.wtank_lifetime_yr) * p.wtank_capex_USD_per_m3 + p.wtank_fom_fraction * p.wtank_capex_USD_per_m3) * K_W;
+-
+-            obj += capitalScale * (crf(p.discount_rate, p.el_lifetime_yr) * p.el_capex_USD_per_kW + p.el_fom_fraction * p.el_capex_USD_per_kW) * 1000.0 * K_EL;
+-            obj += capitalScale * (crf(p.discount_rate, p.h2_lifetime_yr) * p.h2_capex_USD_per_kgH2 + p.h2_fom_fraction * p.h2_capex_USD_per_kgH2) * K_H;
+-            obj += capitalScale * (crf(p.discount_rate, p.fc_lifetime_yr) * p.fc_capex_USD_per_kW + p.fc_fom_USD_per_kW_yr) * 1000.0 * K_FC;
++            IloExpr economicObj(env);
++
++            economicObj += capitalScale * (crf(p.discount_rate, p.pv_lifetime_yr) * p.pv_capex_USD_per_kW + p.pv_fom_USD_per_kW_yr) * 1000.0 * K_PV;
++            economicObj += capitalScale * (crf(p.discount_rate, p.wt_lifetime_yr) * p.wt_capex_USD_per_kW + p.wt_fom_USD_per_kW_yr) * 1000.0 * K_WT;
++
++            economicObj += capitalScale * (crf(p.discount_rate, p.bess_lifetime_yr) * p.bess_p_capex_USD_per_kW + p.bess_fom_fraction * p.bess_p_capex_USD_per_kW) * 1000.0 * K_BP;
++            economicObj += capitalScale * (crf(p.discount_rate, p.bess_lifetime_yr) * p.bess_e_capex_USD_per_kWh + p.bess_fom_fraction * p.bess_e_capex_USD_per_kWh) * 1000.0 * K_BE;
++
++            economicObj += capitalScale * (crf(p.discount_rate, p.ro_lifetime_yr) * p.ro_capex_USD_per_m3_h + p.ro_fom_fraction * p.ro_capex_USD_per_m3_h) * K_RO;
++            economicObj += capitalScale * (crf(p.discount_rate, p.wtank_lifetime_yr) * p.wtank_capex_USD_per_m3 + p.wtank_fom_fraction * p.wtank_capex_USD_per_m3) * K_W;
++
++            economicObj += capitalScale * (crf(p.discount_rate, p.el_lifetime_yr) * p.el_capex_USD_per_kW + p.el_fom_fraction * p.el_capex_USD_per_kW) * 1000.0 * K_EL;
++            economicObj += capitalScale * (crf(p.discount_rate, p.h2_lifetime_yr) * p.h2_capex_USD_per_kgH2 + p.h2_fom_fraction * p.h2_capex_USD_per_kgH2) * K_H;
++            economicObj += capitalScale * (crf(p.discount_rate, p.fc_lifetime_yr) * p.fc_capex_USD_per_kW + p.fc_fom_USD_per_kW_yr) * 1000.0 * K_FC;
+ 
+             for (int t = 0; t < T; ++t) {
+                 const double dt = ts[t].dt_h;
+                 const double w = ts[t].omega;
+ 
+-                obj += w * dt * 1000.0 * ts[t].price_grid_in_usd_kwh * Pgin[t];
+-                obj -= w * dt * 1000.0 * ts[t].price_grid_out_usd_kwh * Pgout[t];
+-
+-                obj += w * dt * 1000.0 * p.dg_var_USD_per_kWh * PDG[t];
+-                obj += w * dt * p.pv_var_USD_per_MWh * Ppv[t];
+-                obj += w * dt * p.wt_var_USD_per_MWh * Pwt[t];
+-                obj += w * dt * p.bess_var_USD_per_MWh * (PBch[t] + PBdis[t]);
+-                obj += w * dt * p.ro_var_USD_per_m3 * WRO[t];
+-                obj += w * dt * p.fc_var_USD_per_MWh * PFC[t];
++                economicObj += w * dt * 1000.0 * ts[t].price_grid_in_usd_kwh * Pgin[t];
++                economicObj -= w * dt * 1000.0 * ts[t].price_grid_out_usd_kwh * Pgout[t];
++
++                economicObj += w * dt * 1000.0 * p.dg_var_USD_per_kWh * PDG[t];
++                economicObj += w * dt * p.pv_var_USD_per_MWh * Ppv[t];
++                economicObj += w * dt * p.wt_var_USD_per_MWh * Pwt[t];
++                economicObj += w * dt * p.bess_var_USD_per_MWh * (PBch[t] + PBdis[t]);
++                economicObj += w * dt * p.ro_var_USD_per_m3 * WRO[t];
++                economicObj += w * dt * p.fc_var_USD_per_MWh * PFC[t];
+ 
+                 annualCO2expr += w * dt * (ts[t].gamma_grid_tco2_mwh * Pgin[t] + p.dg_emission_tCO2_per_MWh * PDG[t]);
+ 
+-                obj += w * dt * p.carbon_tax_USD_per_tCO2
++                economicObj += w * dt * p.carbon_tax_USD_per_tCO2
+                     * (ts[t].gamma_grid_tco2_mwh * Pgin[t] + p.dg_emission_tCO2_per_MWh * PDG[t]);
+ 
+-                obj += w * dt * p.freshwater_shortage_penalty_USD_per_m3 * Wsh[t];
+-                obj += w * dt * p.hydrogen_shortage_penalty_USD_per_kg * Hsh[t];
++                economicObj += w * dt * p.freshwater_shortage_penalty_USD_per_m3 * Wsh[t];
++                economicObj += w * dt * p.hydrogen_shortage_penalty_USD_per_kg * Hsh[t];
+             }
+ 
+             if (p.carbon_cap_enabled) {
+                 model.add(EcapExcess >= annualCO2expr - p.carbon_cap_tCO2);
+                 model.add(EcapExcess >= 0.0);
+-                obj += p.carbon_cap_excess_penalty_USD_per_tCO2 * EcapExcess;
++                economicObj += p.carbon_cap_excess_penalty_USD_per_tCO2 * EcapExcess;
+             } else {
+                 model.add(EcapExcess == 0.0);
+             }
+ 
+-            model.add(IloMinimize(env, obj));
++            if (auditMode == AuditMode::MinRO) {
++                model.add(economicObj <= nearOptEconomicUB);
++                model.add(IloMinimize(env, K_RO));
++            } else if (auditMode == AuditMode::MaxRO) {
++                model.add(economicObj <= nearOptEconomicUB);
++                model.add(IloMaximize(env, K_RO));
++            } else {
++                model.add(IloMinimize(env, economicObj));
++            }
+             annualCO2expr.end();
+-            obj.end();
+ 
+             IloCplex cplex(model);
+-            cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 1e-4);
+-            cplex.setParam(IloCplex::Param::TimeLimit, 3600);
++            cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, solverMipGap);
++            cplex.setParam(IloCplex::Param::TimeLimit, solverTimeLimitSec);
+             cplex.setOut(env.getNullStream());
+ 
+             std::cout << "Solving model..." << std::endl;
+@@ -968,8 +1019,21 @@
+             if (isStress) std::cout << "Stress constraints are active during feedwater-omitting sizing. The re-evaluation only fixes the resulting capacities." << std::endl;
+             if (hardService) std::cout << "Hard-service feasibility mode = yes (freshwater shortage = 0, H2 shortage = 0)" << std::endl;
+             if (isC3) std::cout << "Capacity fix file = " << capFixPath << std::endl;
+-
++            if (auditMode != AuditMode::None) {
++                std::cout << "RO audit mode = " << auditModeName(auditMode) << std::endl;
++                std::cout << "Solver MIP gap target = " << solverMipGap << std::endl;
++                std::cout << "Solver time limit = " << solverTimeLimitSec << " s" << std::endl;
++                if (nearOptRangeMode) {
++                    std::cout << "Economic objective upper bound = " << std::setprecision(15)
++                              << nearOptEconomicUB << " USD/yr" << std::endl;
++                }
++            }
++
++            const auto solveWallStart = std::chrono::steady_clock::now();
+             const bool ok = cplex.solve();
++            const auto solveWallEnd = std::chrono::steady_clock::now();
++            const double solveWallSeconds =
++                std::chrono::duration<double>(solveWallEnd - solveWallStart).count();
+ 
+             std::string prefix;
+             if (isC3) prefix = "expost_C3";
+@@ -990,14 +1054,32 @@
+             summary << "metric,value\n";
+             summary << "status," << cplex.getStatus() << "\n";
+             summary << "hard_service_mode," << (hardService ? 1 : 0) << "\n";
++            summary << "audit_mode," << auditModeName(auditMode) << "\n";
++            summary << "solver_mip_gap_target," << std::setprecision(15) << solverMipGap << "\n";
++            summary << "solver_time_limit_s," << solverTimeLimitSec << "\n";
++            summary << "solve_wall_time_s," << solveWallSeconds << "\n";
++            if (nearOptRangeMode) {
++                summary << "economic_objective_upper_bound_USD," << nearOptEconomicUB << "\n";
++            } else {
++                summary << "economic_objective_upper_bound_USD,NaN\n";
++            }
+ 
+             if (!ok) {
+                 summary << "objective_USD,NaN\n";
++                summary << "economic_objective_USD,NaN\n";
++                summary << "audit_objective_value,NaN\n";
++                summary << "best_bound,NaN\n";
++                summary << "achieved_relative_mip_gap,NaN\n";
+                 summary.close();
+                 std::cerr << "No feasible/optimal solution. CPLEX status: " << cplex.getStatus() << std::endl;
+                 env.end();
+                 return 2;
+             }
++
++            const double auditObjectiveValue = cplex.getObjValue();
++            const double economicObjectiveValue = cplex.getValue(economicObj);
++            const double bestBoundValue = cplex.getBestObjValue();
++            const double achievedRelativeGap = cplex.getMIPRelativeGap();
+ 
+             std::ofstream cap(capPath);
+             if (!cap.is_open()) {
+@@ -1040,18 +1122,22 @@
+             double welM3 = 0.0;
+             double co2t = 0.0;
+ 
+-            std::ofstream disp(dispPath);
+-            if (!disp.is_open()) {
+-                std::cerr << "Cannot create dispatch output file: " << dispPath << std::endl;
+-                summary.close();
+-                env.end();
+-                return 3;
+-            }
+-            disp << std::setprecision(15);
+-            disp << "t,datetime,P_load_MW,W_load_m3_h,H2_load_kg_h,phi_pv,phi_wt,"
+-                 << "Ppv_MW,Ppv_cur_MW,Pwt_MW,Pwt_cur_MW,PDG_MW,Pgin_MW,Pgout_MW,"
+-                 << "PBch_MW,PBdis_MW,EB_MWh,PRO_MW,WRO_m3_h,SW_m3,Wsh_m3_h,"
+-                 << "PEL_MW,HEL_kg_h,WEL_m3_h,PFC_MW,HFC_kg_h,H2_served_kg_h,H2_shortage_kg_h,SH_kg\n";
++            const bool writeDispatch = (auditMode == AuditMode::None);
++            std::ofstream disp;
++            if (writeDispatch) {
++                disp.open(dispPath);
++                if (!disp.is_open()) {
++                    std::cerr << "Cannot create dispatch output file: " << dispPath << std::endl;
++                    summary.close();
++                    env.end();
++                    return 3;
++                }
++                disp << std::setprecision(15);
++                disp << "t,datetime,P_load_MW,W_load_m3_h,H2_load_kg_h,phi_pv,phi_wt,"
++                     << "Ppv_MW,Ppv_cur_MW,Pwt_MW,Pwt_cur_MW,PDG_MW,Pgin_MW,Pgout_MW,"
++                     << "PBch_MW,PBdis_MW,EB_MWh,PRO_MW,WRO_m3_h,SW_m3,Wsh_m3_h,"
++                     << "PEL_MW,HEL_kg_h,WEL_m3_h,PFC_MW,HFC_kg_h,H2_served_kg_h,H2_shortage_kg_h,SH_kg\n";
++            }
+ 
+             for (int t = 0; t < T; ++t) {
+                 const double dt = ts[t].dt_h;
+@@ -1092,20 +1178,26 @@
+                 welM3 += vWEL * wd;
+                 co2t += (ts[t].gamma_grid_tco2_mwh * vPgin + p.dg_emission_tCO2_per_MWh * vPDG) * wd;
+ 
+-                disp << t + 1 << "," << ts[t].datetime << ","
+-                     << ts[t].p_load_mw << "," << ts[t].w_load_m3_h << "," << ts[t].h2_load_kg_h << ","
+-                     << ts[t].phi_pv << "," << ts[t].phi_wt << ","
+-                     << vPpv << "," << vPpvCur << "," << vPwt << "," << vPwtCur << ","
+-                     << vPDG << "," << vPgin << "," << vPgout << ","
+-                     << cplex.getValue(PBch[t]) << "," << cplex.getValue(PBdis[t]) << "," << cplex.getValue(EB[t]) << ","
+-                     << cplex.getValue(PRO[t]) << "," << vWRO << "," << cplex.getValue(SW[t]) << "," << vWsh << ","
+-                     << cplex.getValue(PEL[t]) << "," << vHEL << "," << vWEL << ","
+-                     << cplex.getValue(PFC[t]) << "," << vHFC << "," << vHserv << "," << vHsh << "," << cplex.getValue(SH[t]) << "\n";
+-            }
+-            disp.close();
+-
+-            summary << std::setprecision(12);
+-            summary << "objective_USD," << cplex.getObjValue() << "\n";
++                if (writeDispatch) {
++                    disp << t + 1 << "," << ts[t].datetime << ","
++                         << ts[t].p_load_mw << "," << ts[t].w_load_m3_h << "," << ts[t].h2_load_kg_h << ","
++                         << ts[t].phi_pv << "," << ts[t].phi_wt << ","
++                         << vPpv << "," << vPpvCur << "," << vPwt << "," << vPwtCur << ","
++                         << vPDG << "," << vPgin << "," << vPgout << ","
++                         << cplex.getValue(PBch[t]) << "," << cplex.getValue(PBdis[t]) << "," << cplex.getValue(EB[t]) << ","
++                         << cplex.getValue(PRO[t]) << "," << vWRO << "," << cplex.getValue(SW[t]) << "," << vWsh << ","
++                         << cplex.getValue(PEL[t]) << "," << vHEL << "," << vWEL << ","
++                         << cplex.getValue(PFC[t]) << "," << vHFC << "," << vHserv << "," << vHsh << "," << cplex.getValue(SH[t]) << "\n";
++                }
++            }
++            if (writeDispatch) disp.close();
++
++            summary << std::setprecision(15);
++            summary << "objective_USD," << economicObjectiveValue << "\n";
++            summary << "economic_objective_USD," << economicObjectiveValue << "\n";
++            summary << "audit_objective_value," << auditObjectiveValue << "\n";
++            summary << "best_bound," << bestBoundValue << "\n";
++            summary << "achieved_relative_mip_gap," << achievedRelativeGap << "\n";
+             summary << "horizon_hours," << horizonHours << "\n";
+             summary << "capital_scale," << capitalScale << "\n";
+             summary << "decoupled_water_balance," << (decoupledWaterBalance ? 1 : 0) << "\n";
+@@ -1138,9 +1230,16 @@
+             summary << "total_CO2_t," << co2t << "\n";
+             summary.close();
+ 
+-            std::cout << "Solved. Objective = " << cplex.getObjValue() << " USD" << std::endl;
++            std::cout << "Solved. Economic objective = " << std::setprecision(15)
++                      << economicObjectiveValue << " USD/yr" << std::endl;
++            if (auditMode == AuditMode::MinRO || auditMode == AuditMode::MaxRO) {
++                std::cout << "RO capacity audit objective = " << auditObjectiveValue << " m3/h" << std::endl;
++            }
++            std::cout << "Best bound = " << bestBoundValue
++                      << ", achieved relative MIP gap = " << achievedRelativeGap
++                      << ", solve wall time = " << solveWallSeconds << " s" << std::endl;
+             std::cout << "Capacity file: " << capPath << std::endl;
+-            std::cout << "Dispatch file: " << dispPath << std::endl;
++            if (writeDispatch) std::cout << "Dispatch file: " << dispPath << std::endl;
+             std::cout << "Summary file: " << summaryPath << std::endl;
+ 
+             env.end();
+@@ -1167,7 +1266,23 @@
+     const std::string defaultParam = "input/base_params_final_refined_coastal_h2hub_v21_2.json";
+     const std::string defaultOut = "output_8760_final_v21_2_c1_c7";
+ 
+-    // Run one case from the command line.
++    // Near-optimal RO-capacity audit:
++    //   exe --audit input.csv params.json out_dir CASE_ID BASE 0 MIP_GAP TIME_LIMIT_S
++    //   exe --audit input.csv params.json out_dir CASE_ID MINRO ECONOMIC_UB MIP_GAP TIME_LIMIT_S
++    //   exe --audit input.csv params.json out_dir CASE_ID MAXRO ECONOMIC_UB MIP_GAP TIME_LIMIT_S
++    if (argc >= 10 && std::string(argv[1]) == "--audit") {
++        const std::string tsPath = argv[2];
++        const std::string paramPath = argv[3];
++        const std::string outDir = argv[4];
++        const std::string caseId = argv[5];
++        const AuditMode mode = parseAuditMode(argv[6]);
++        const double economicUB = std::stod(argv[7]);
++        const double mipGap = std::stod(argv[8]);
++        const double timeLimitSec = std::stod(argv[9]);
++        return runModel(tsPath, paramPath, outDir, caseId, "", mode, economicUB, mipGap, timeLimitSec);
++    }
++
++    // Run one standard case from the command line.
+     if (argc >= 6 && std::string(argv[1]) == "--single") {
+         const std::string tsPath = argv[2];
+         const std::string paramPath = argv[3];

@@ -1,0 +1,19 @@
+Hard-service feasibility result
+
+Condition:
+- Community freshwater demand scale: 50%
+- External H2 service: 8,000 kg-H2/day
+- Symmetric PCC limit: 1.5 MW
+- Carbon price: 150 USD/tCO2-eq
+
+Ordinary fixed-capacity re-evaluation:
+- CPLEX status: Optimal
+- Freshwater shortage: 5918.31013331 m3/yr
+- H2 shortage: 1.81898940355e-12 kg-H2/yr (numerical zero)
+
+Hard-service re-evaluation:
+- Freshwater shortage constrained to zero in every hour
+- H2 shortage constrained to zero in every hour
+- CPLEX status: Infeasible
+
+The ordinary shortage value is the penalized re-evaluation result and is not interpreted as a penalty-independent physical minimum.

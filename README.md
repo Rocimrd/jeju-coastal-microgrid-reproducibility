@@ -1,82 +1,66 @@
 # Jeju coastal microgrid reproducibility materials
 
-This repository contains the data, model input files, C++ source code, selected hourly outputs, and checking scripts for the study on electrolyzer feedwater coupling in a renewable coastal microgrid.
+This repository contains processed data, model inputs, C++ source/build files, machine-readable results, selected hourly outputs, and validation materials for the study of omitted electrolyzer-feedwater coupling in a renewable coastal microgrid.
 
 ## Model formulations
 
-The repository uses the same three formulation names as the manuscript:
+The repository uses the manuscript terminology:
 
-- **Full-coupled planning**: electrolyzer feedwater is included in the water balance during sizing and operation.
-- **Feedwater-omitting sizing benchmark**: electrolyzer feedwater is omitted from the water balance during sizing.
-- **Fixed-capacity full-coupled re-evaluation**: capacities from the feedwater-omitting benchmark are fixed and operation is re-solved with the complete water balance.
+- **Fully coupled reference**: electrolyzer feedwater is included in the shared water balance during planning and operation.
+- **Feedwater-omitting benchmark**: electrolyzer feedwater is omitted from the shared water balance during planning.
+- **Fixed-capacity re-evaluation**: benchmark-derived capacities are fixed, feedwater coupling is restored, and annual operation is re-optimized.
 
-Short internal case IDs are retained only where needed for compatibility with archived solver output names. Their mapping to the manuscript terms is stated at the beginning of `source/Source.cpp`.
+Legacy C1/C2/C3 identifiers are retained only where required by archived solver filenames.
 
-## Data
+## New evidence in v1.1.0
 
-- `data/hourly_input.csv` contains the compact 8,760-hour input series.
-- `software/model_input_full.csv` contains the full solver input used by the C++ model.
-- `data/parameters.json` and `software/parameters.json` contain the model parameters.
-- `results/` contains summary results and selected 8,760-hour dispatch files.
-- `paper_data/` contains Data S1-S9, Tables S1-S3, and the public workbook used with the manuscript.
-- `profile_inputs/` contains the flat 24-hour and 12-hour-shift hydrogen service profiles used in the timing sensitivity analysis.
+- A selected-condition **hard-service feasibility diagnostic**. At 50% community freshwater demand and 8,000 kg-H2/day external H2 service, the ordinary fixed-capacity re-evaluation gives 5,918.31013331 m3/yr of freshwater shortage and numerical-zero H2 shortage. With both service shortages fixed to zero, CPLEX returns `Infeasible`.
+- A **150-solve epsilon-optimal RO-capacity audit** over the 25-condition demand matrix. The tighter optimum selects a lower RO capacity in all 25 conditions. At a 0.01% economic-objective tolerance, RO-capacity ranges are separated in 3 conditions and overlap in 22.
+- Supplementary machine-readable files are renumbered to match the revised manuscript and Supplementary Material.
 
-The signed 2025 Jeju SMP is retained for both grid purchase and sale prices. The export price is 0.8 times the signed import-price basis.
+The diagnostic materials are under `analysis/hard_service/` and `analysis/near_optimal_ro/`.
 
-## Source code
+## Data and results
 
-`source/Source.cpp` contains the annual MILP model. The project targets Windows x64, C++17, and IBM ILOG CPLEX Optimization Studio 22.1.2.
+- `data/hourly_input.csv`: compact 8,760-hour input series.
+- `software/model_input_full.csv`: full solver input used by the C++ model.
+- `data/parameters.json` and `software/parameters.json`: model parameters.
+- `results/`: core, sensitivity, augmentation, and selected dispatch results.
+- `paper_data/`: Data S1-S11 and Tables S1-S4 in manuscript call order.
+- `profile_inputs/`: flat-24-hour and 12-hour-shift H2 service profiles.
 
-The final source file from the reported run was not retained. The source supplied here was reconstructed from the last archived project using the two confirmed source changes listed in `source/SOURCE_PATCH.diff`. A Release x64 build reproduced the three base reference results recorded in `validation/validated_base_result.txt`.
+The signed 2025 Jeju SMP is retained for both grid purchase and sale prices. Grid export price is 0.8 times the signed import-price basis.
 
-## Reproduction check
+The former `service_priority_sensitivity.csv` files are renamed `absolute_penalty_scaling.csv` because freshwater- and H2-shortage penalties are multiplied by the same factor and their relative ratio is unchanged.
 
-On a Windows computer with CPLEX 22.1.2 and a compatible Visual Studio C++ toolset, run:
+## Source and reproduction checks
+
+`source/Source.cpp` contains the reconstructed annual MILP source. The project targets Windows x64, C++17, and IBM ILOG CPLEX Optimization Studio 22.1.2. The original final `Source.cpp` was not retained byte-for-byte; the supplied source and the two documented corrections are described in `source/SOURCE_LINEAGE.md` and `source/SOURCE_PATCH.diff`.
+
+For the existing base source/project reproduction check, run:
 
 ```text
 RUN_REPRODUCTION_CHECK.bat
 ```
 
-The script checks the input files and model settings, builds the C++ project, runs the three base formulations, and compares the results with `validation/reference_base.json`.
-
-The reproduction check covers the three base formulations. Machine-readable results for the other analyses reported in the manuscript are provided in `results/` and `paper_data/`.
-
-## Hydrogen timing profiles
-
-The alternative hydrogen service profiles can be recreated from the full solver input with:
+For the v1.1 diagnostic evidence consistency check, run:
 
 ```text
-python code/create_h2_profile_inputs.py
+RUN_V1_1_EVIDENCE_CHECK.bat
 ```
 
-Each alternative preserves the daily hydrogen requirement and the annual total.
+The standalone executed diagnostic runner bundles are preserved under `analysis/`. They include the modified source and full input required for those diagnostic runs.
 
-## File integrity
+## Reproduction scope
 
-`FILE_CHECKSUMS.csv` contains optional file checksums for checking whether repository files have changed after transfer or archiving. `code/verify_archive.py` checks these values together with the main input and result-table dimensions.
-
-## Main directories
-
-- `data/`: processed inputs and scenario definitions
-- `paper_data/`: manuscript data files and public workbook
-- `results/`: result summaries and selected hourly dispatch files
-- `software/`: full solver input and parameter file
-- `source/`: C++ source, Visual Studio project, and build files
-- `validation/`: reference values and checking scripts
-- `code/`: data and archive utilities
-- `provenance/`: source-data register
+The root reproduction command covers the central base formulations. Dedicated runner packages and machine-readable evidence are provided for the hard-service diagnostic and the epsilon-optimal RO audit. Other reported analysis families are supplied as checked machine-readable results and are not all regenerated by one root command. See `FULL_REPRODUCTION_SCOPE.md`.
 
 ## Software requirement
 
-IBM ILOG CPLEX Optimization Studio 22.1.2 is required to build and run the optimization model. CPLEX libraries and license files are not distributed in this repository.
+IBM ILOG CPLEX Optimization Studio 22.1.2 is required to compile and execute the optimization source. CPLEX libraries and license files are not distributed.
 
-## Citation and license
+## Citation and licenses
 
-This is release `v1.0.0`.
+This is release `v1.1.0`. The archived record is associated with Zenodo DOI `10.5281/zenodo.21846588`. Confirm the v1.1.0 files are visible in the archived record before journal submission.
 
-The archived release is available on Zenodo:
-DOI: 10.5281/zenodo.21846588
-
-Citation metadata are provided in `CITATION.cff`. The article DOI will be added after publication.
-
-The source code, build files, and checking scripts are released under the MIT License in `LICENSE`. The research data and analysis outputs are released under CC BY 4.0 as described in `DATA_LICENSE.txt`. Third-party source data remain subject to the terms of their original providers.
+Citation metadata are provided in `CITATION.cff`. Source code and checking scripts are released under the MIT License. Processed research data and analysis outputs are released under CC BY 4.0 as described in `DATA_LICENSE.txt`. Third-party source data remain subject to their original providers' terms.
