@@ -15,6 +15,22 @@ def close(a, b, tolerance=1e-10):
     return abs(a - b) <= tolerance
 
 
+TEXT_EXTENSIONS = {
+    ".bat", ".cff", ".cpp", ".csv", ".diff", ".json", ".md",
+    ".props", ".ps1", ".py", ".txt", ".vcxproj"
+}
+TEXT_FILENAMES = {"LICENSE"}
+
+
+def checksum_bytes(path):
+    data = path.read_bytes()
+    if path.suffix.lower() in TEXT_EXTENSIONS or path.name in TEXT_FILENAMES:
+        # Git for Windows can check text files out with CRLF while GitHub stores LF.
+        # Normalize line endings so checksum verification is platform-independent.
+        data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return data
+
+
 def verify_checksums():
     failures = []
     for row in read_csv(ROOT / "FILE_CHECKSUMS.csv"):
@@ -22,7 +38,7 @@ def verify_checksums():
         if not path.is_file():
             failures.append(row["relative_path"])
             continue
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        digest = hashlib.sha256(checksum_bytes(path)).hexdigest()
         if digest != row["checksum"]:
             failures.append(row["relative_path"])
     return failures

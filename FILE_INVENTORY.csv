@@ -1,10 +1,11 @@
 relative_path,size_bytes
 CHANGELOG_v1.1.0.md,712
+CHANGELOG_v1.1.1.md,448
 CITATION.cff,392
 DATA_LICENSE.txt,667
 FULL_REPRODUCTION_SCOPE.md,1371
 LICENSE,1069
-README.md,4353
+README.md,4748
 REPRODUCIBILITY_STATUS.md,933
 RUN_REPRODUCTION_CHECK.bat,300
 RUN_V1_1_EVIDENCE_CHECK.bat,198
@@ -39,7 +40,7 @@ analysis/near_optimal_ro/runner/run_nearopt_ro_audit.ps1,23949
 analysis/near_optimal_ro/source/Source.cpp,61920
 code/build_key_tables.py,2962
 code/create_h2_profile_inputs.py,3902
-code/verify_archive.py,3181
+code/verify_archive.py,3731
 data/data_dictionary.csv,26696
 data/hourly_input.csv,1469550
 data/parameter_table.csv,3959

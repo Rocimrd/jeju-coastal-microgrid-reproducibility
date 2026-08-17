@@ -2,6 +2,8 @@
 
 This repository contains processed data, model inputs, C++ source/build files, machine-readable results, selected hourly outputs, and validation materials for the study of omitted electrolyzer-feedwater coupling in a renewable coastal microgrid.
 
+Release `v1.1.1` corrects citation/release metadata and makes checksum verification independent of LF/CRLF text line endings. Numerical data, optimization source, diagnostic results, and validation evidence are unchanged.
+
 ## Model formulations
 
 The repository uses the manuscript terminology:
@@ -49,7 +51,7 @@ For the v1.1 diagnostic evidence consistency check, run:
 RUN_V1_1_EVIDENCE_CHECK.bat
 ```
 
-The standalone executed diagnostic runner bundles are preserved under `analysis/`. They include the modified source and full input required for those diagnostic runs.
+The standalone executed diagnostic runner bundles are preserved under `analysis/`. They include the modified source and full input required for those diagnostic runs. `code/verify_archive.py` normalizes LF/CRLF line endings for text files before checksum comparison so the same checksums can be verified on Windows and Unix-like systems.
 
 ## Reproduction scope
 
@@ -61,6 +63,6 @@ IBM ILOG CPLEX Optimization Studio 22.1.2 is required to compile and execute the
 
 ## Citation and licenses
 
-This is release `v1.1.0`. The archived record is associated with Zenodo DOI `10.5281/zenodo.21846588`. Confirm the v1.1.0 files are visible in the archived record before journal submission.
+This is release `v1.1.1`. The all-versions Zenodo DOI is `10.5281/zenodo.21846587`. After Zenodo archives `v1.1.1`, use its version-specific DOI when an exact immutable snapshot is required.
 
 Citation metadata are provided in `CITATION.cff`. Source code and checking scripts are released under the MIT License. Processed research data and analysis outputs are released under CC BY 4.0 as described in `DATA_LICENSE.txt`. Third-party source data remain subject to their original providers' terms.
