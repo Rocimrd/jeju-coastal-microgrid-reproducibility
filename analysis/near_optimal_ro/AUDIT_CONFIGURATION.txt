@@ -1,0 +1,24 @@
+Near-optimal RO-capacity robustness audit
+
+Core demand matrix
+Community freshwater-demand scale (%): 50, 75, 100, 125, 150
+External H2 service (kg-H2/day): 1000, 3000, 5000, 8000, 10000
+Carbon price: 150 USD/tCO2-eq
+Symmetric PCC limit: 1.5 MW
+
+Planning formulations
+C1: fully coupled reference
+C2: feedwater-omitting benchmark
+
+Audit definition
+1. Re-solve each C1/C2 planning problem with a tighter MIP-gap target of 1e-6.
+2. Let J* be the feasible economic objective returned by that tighter solve.
+3. Define the near-optimal economic set by J <= (1 + epsilon) J*, epsilon = 1e-4.
+4. Minimize K_RO over that set.
+5. Maximize K_RO over that set.
+6. Compare the C1 and C2 RO-capacity intervals for every one of the 25 demand conditions.
+
+Total annual MILPs if all runs complete: 25 conditions x 2 formulations x 3 solves = 150.
+
+The audit does not resize a fixed C3 portfolio and does not add a new physical model.
+It evaluates numerical robustness of the existing planning-stage RO-capacity comparison.

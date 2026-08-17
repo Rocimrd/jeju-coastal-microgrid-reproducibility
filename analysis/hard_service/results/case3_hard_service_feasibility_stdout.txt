@@ -1,0 +1,8 @@
+Solving model...
+Internal case ID = C3_HARDSERVICE_WATER50_H2D8000_GRIDCAP1.5_TAX150
+Mode = Fixed-capacity full-coupled re-evaluation
+Decoupled water balance = no
+Rows = 8760, horizon hours = 8760, weighted hours = 8760, capital scale = 1
+Scenario modifiers: noWTank=no, noH2Tank=no, noFC=no, noBESS=no, carbon_tax=150, carbon_cap=no, RO_SEC=2.864, EL_kappa=49.9, H2_shortage_penalty=2500
+Hard-service feasibility mode = yes (freshwater shortage = 0, H2 shortage = 0)
+Capacity fix file = <USER_PROFILE>\Desktop\Energy_Hard_Service_Check_v1_2\Energy_Hard_Service_Check_v1_2\results\hard_service_run_20260815_152338\capacity_decoupled_C2_C2_HARDCHECK_WATER50_H2D8000_GRIDCAP1.5_TAX150.csv

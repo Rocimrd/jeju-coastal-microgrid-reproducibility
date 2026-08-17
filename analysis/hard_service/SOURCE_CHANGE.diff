@@ -1,0 +1,45 @@
+--- Source_public_v1.0.0.cpp
++++ Source.cpp
+@@ -451,8 +451,14 @@
+     const bool isC3 = containsText(caseId, "C3");
+     const bool isC2 = containsText(caseId, "C2");
+     const bool isStress = containsText(caseId, "STRESS");
++    const bool hardService = containsText(caseId, "HARDSERVICE");
+     const bool decoupledWaterBalance = isC2 && !isC3;
+ 
++    if (hardService && !isC3) {
++        std::cerr << "HARDSERVICE is only valid for fixed-capacity C3 re-evaluation." << std::endl;
++        return 4;
++    }
++
+     if (isC3 && capFixPath.empty()) {
+         if (isStress) {
+             capFixPath = outDir + "/capacity_decoupled_C2_C2_STRESS_7DAY.csv";
+@@ -807,6 +813,11 @@
+                 model.add(Hserv[t] + Hsh[t] == Hload);
+                 model.add(Hsh[t] <= Hload);
+ 
++                if (hardService) {
++                    model.add(Wsh[t] == 0.0);
++                    model.add(Hsh[t] == 0.0);
++                }
++
+                 model.add(PEL[t] <= K_EL);
+                 model.add(PFC[t] <= K_FC);
+                 model.add(PEL[t] <= p.K_EL_max_MW * uHess[t]);
+@@ -955,6 +966,7 @@
+                       << ", EL_kappa=" << p.el_kappa_kWh_per_kgH2
+                       << ", H2_shortage_penalty=" << p.hydrogen_shortage_penalty_USD_per_kg << std::endl;
+             if (isStress) std::cout << "Stress constraints are active during feedwater-omitting sizing. The re-evaluation only fixes the resulting capacities." << std::endl;
++            if (hardService) std::cout << "Hard-service feasibility mode = yes (freshwater shortage = 0, H2 shortage = 0)" << std::endl;
+             if (isC3) std::cout << "Capacity fix file = " << capFixPath << std::endl;
+ 
+             const bool ok = cplex.solve();
+@@ -977,6 +989,7 @@
+             }
+             summary << "metric,value\n";
+             summary << "status," << cplex.getStatus() << "\n";
++            summary << "hard_service_mode," << (hardService ? 1 : 0) << "\n";
+ 
+             if (!ok) {
+                 summary << "objective_USD,NaN\n";

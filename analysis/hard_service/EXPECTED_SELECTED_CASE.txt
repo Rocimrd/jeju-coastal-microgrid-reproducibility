@@ -1,0 +1,30 @@
+Selected-condition reproduction targets used only as pre-diagnostic gates
+
+Scenario
+Freshwater demand scale: 50%
+External H2 service: 8,000 kg-H2/day
+Carbon price: 150 USD/tCO2-eq
+Symmetric PCC limit: 1.5 MW
+
+Published feedwater-omitting benchmark capacities (manuscript precision)
+PV: 74.50 MW
+WT: 27.49 MW
+BESS power: 1.385 MW
+BESS energy: 5.023 MWh
+RO: 49.83 m3/h
+Water tank: 1,175 m3
+Electrolyzer: 44.04 MW
+H2 tank: 45,782.8 kg-H2
+Fuel cell: 0.585 MW
+
+Machine-readable exact values available in the final reported result layer
+BESS energy: 5.02267179811471 MWh
+RO: 49.8269534027442 m3/h
+Water tank: 1174.63189214861 m3
+
+Ordinary fixed-capacity re-evaluation targets
+Objective: 18,718,038.2694 USD/yr
+Freshwater shortage: 5,918.31013332 m3/yr
+External H2 shortage: numerical zero
+
+These values are used only to prevent the hard-service test from being interpreted when the selected manuscript case has not first been reproduced.

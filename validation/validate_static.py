@@ -155,7 +155,7 @@ add(
 expected_counts = {
     "base_case_summary.csv": 1,
     "coupling_grid.csv": 25,
-    "service_priority_sensitivity.csv": 16,
+    "absolute_penalty_scaling.csv": 16,
     "proportional_restoration.csv": 4,
     "independent_restoration.csv": 2,
     "feedwater_sensitivity.csv": 6,

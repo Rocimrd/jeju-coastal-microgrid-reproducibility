@@ -1,0 +1,17 @@
+﻿Near-optimal RO-capacity robustness audit
+
+STATUS = COMPLETE
+Completed condition pairs = 25/25
+Optimum benchmark K_RO lower than reference = 25/25
+Strictly separated epsilon-optimal RO ranges = 3/25
+Overlapping/touching epsilon-optimal RO ranges = 22/25
+epsilon = 0.0001
+baseline MIP-gap target = 1E-06
+range-solve MIP-gap target = 1E-06
+time limit per annual MILP = 3600 s
+elapsed = 5 h 07 min 36 s
+
+Interpretation rule
+STRICT_SEPARATION means benchmark max K_RO < reference min K_RO within the defined epsilon-optimal economic sets.
+OVERLAP_OR_TOUCH means the two epsilon-optimal RO-capacity intervals are not strictly separated.
+This file reports the numerical audit only. Manuscript wording should be decided after reviewing the complete result table.
